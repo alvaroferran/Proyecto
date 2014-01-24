@@ -22,7 +22,9 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -32,10 +34,15 @@ public class MainActivity extends Activity {
     private static final String TAG = "bluetooth1";
 
     ToggleButton closeClaw;
-    SeekBar servoL1,servoL2,servoL3,servoL4,movY;
+    SeekBar servoL1,servoL2,servoL3,servoL4;
     private WebView webView1;
-    private String url;
-    private Button Reset, Up, Down,Left, Right, ButtonURL;
+    private String url="http://192.168.1.134:8080/javascript_simple.html";
+    private Button Reset, Up, Down,Left, Right,Stop, ButtonURL;
+    private Switch leftRight;
+    private CheckBox symmetry;
+
+
+
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
     private OutputStream outStream = null; //original
@@ -66,26 +73,8 @@ public class MainActivity extends Activity {
         Down=(Button) findViewById(R.id.buttonD);
         Left=(Button) findViewById(R.id.buttonL);
         Right=(Button) findViewById(R.id.buttonR);
+        Stop=(Button)findViewById(R.id.buttonS);
 
-       /* movY.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-            int progressChanged = 0;
-
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                progressChanged = progress;
-                String value = String.format("%03d", progressChanged); //format numbers as 001
-                //Toast.makeText(getBaseContext(), value, Toast.LENGTH_SHORT).show();
-                sendData("mvY"+value);
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                seekBar.setProgress(50);//Reset seekbar to default value
-
-            }
-        });*/
 
 
         servoL1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -191,6 +180,8 @@ public class MainActivity extends Activity {
             }
         });
 
+
+
         
     }
 
@@ -208,9 +199,6 @@ public class MainActivity extends Activity {
             {
                 Intent activity1 = new Intent(MainActivity.this,SetUrl.class);
                 startActivityForResult(activity1,0);
-           /* String mensaje=new Intent(num1).toString();
-            activity1.putExtra("num1",mensaje);
-            startActivityForResult(activity1,0);  */
             }
         });
 
@@ -223,31 +211,60 @@ public class MainActivity extends Activity {
         webView1 = (WebView) findViewById(R.id.webView1);
         webView1.getSettings().setJavaScriptEnabled(true);
         webView1.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-
         webView1.setWebViewClient(new WebViewer());
-        //webView1.loadUrl("http://www.google.com");
         webView1.loadUrl(url);
 
-
-
-            //http://192.168.1.133:8080/stream_simple.html
-
-
-
-
-        procesamiento();
+       // procesamiento();
 
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-@Override
-public void onActivityResult(int requestCode, int resultCode, Intent data){
-    if(data!=null){
-        String dato=data.getStringExtra("Test");
-        url=dato;
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(data!=null){
+            String dato=data.getStringExtra("Test");
+            url=dato;
+        }
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private void ReadValuesAndSend(){
+
+      String sendToArduino="Msg";
+
+
+      double SL1= servoL1.getProgress();
+      sendToArduino.concat(Double.toString(SL1));
+      double SL2= servoL2.getProgress();
+      double SL3= servoL3.getProgress();
+      double SL4= servoL4.getProgress();
+      int clawState;
+      if (closeClaw.isChecked())
+          clawState=1;
+      else
+          clawState=0;
+      int symState;
+      if(symmetry.isChecked())
+          symState=1;
+      else
+          symState=0;
+      int LRState;
+      if(leftRight.isChecked())
+          LRState=1;
+      else
+          LRState=0;
+
+
+
+
+
+
+
+
+
     }
 
-}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
@@ -270,6 +287,8 @@ public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onResume();
 
         webView1.loadUrl(url);
+        procesamiento();
+
 
         Log.d(TAG, "...onResume - try connect...");
 
