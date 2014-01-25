@@ -4,6 +4,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
+import java.util.ServiceLoader;
 import java.util.UUID;
 
 import com.AlvaroFerran.controlbluetooth.R;
@@ -41,6 +42,8 @@ public class MainActivity extends Activity {
     private Switch leftRight;
     private CheckBox symmetry;
 
+    private int  upState=0, downState=0, leftState=0, rightState=0, stopState=0; //Buttons pressed or not
+    public String sendToArduino;
 
 
     private BluetoothAdapter btAdapter = null;
@@ -74,100 +77,53 @@ public class MainActivity extends Activity {
         Left=(Button) findViewById(R.id.buttonL);
         Right=(Button) findViewById(R.id.buttonR);
         Stop=(Button)findViewById(R.id.buttonS);
-
+        symmetry=(CheckBox)findViewById(R.id.checkBox);
+        leftRight=(Switch)findViewById(R.id.switch1);
 
 
         servoL1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-            int progressChanged = 0;
-
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                progressChanged = progress;
-                //sendData("SL1"+progressChanged);
-
+                ReadValuesAndSend();
             }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
+            public void onStartTrackingTouch(SeekBar seekBar){ // TODO Auto-generated method stub
             }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-              //  seekBar.setProgress(50);
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar){}
         });
 
         servoL2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-            int progressChanged = 0;
-
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                progressChanged = progress;
-                //sendData("L2"+progressChanged);
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-
-            }
+           public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                ReadValuesAndSend();
+           }
+           public void onStartTrackingTouch(SeekBar seekBar) {// TODO Auto-generated method stub
+           }
+           public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
         servoL3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-            int progressChanged = 0;
-
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                progressChanged = progress;
-                //sendData("L3"+progressChanged);
+                ReadValuesAndSend();
             }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
+            public void onStartTrackingTouch(SeekBar seekBar) {// TODO Auto-generated method stub
             }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
         servoL4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-            int progressChanged = 0;
-
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                progressChanged = progress;
-                //sendData("L4"+progressChanged);
+               ReadValuesAndSend();
             }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
+            public void onStartTrackingTouch(SeekBar seekBar) {//TODO Auto-generated method stub
             }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
-
-
-        closeClaw.setOnClickListener(new OnClickListener() {
-
-            @Override
+       closeClaw.setOnClickListener(new OnClickListener() {
+            //@Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                if (closeClaw.isChecked()) {
-
-                    Toast.makeText(getBaseContext(), "Closing ", Toast.LENGTH_SHORT).show();
-                } else {
-
-                    Toast.makeText(getBaseContext(), "Opening ", Toast.LENGTH_SHORT).show();
-                }
+                ReadValuesAndSend();
             }
         });
-
 
         Reset.setOnClickListener(new View.OnClickListener()
         {
@@ -180,9 +136,55 @@ public class MainActivity extends Activity {
             }
         });
 
+        Up.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                upState=1;
+                ReadValuesAndSend();
+                upState=0;
+            }
+        });
 
+        Down.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                downState=1;
+                ReadValuesAndSend();
+                downState=0;
+            }
+        });
 
-        
+        Left.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                leftState=1;
+                ReadValuesAndSend();
+                leftState=0;
+            }
+        });
+
+        Right.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                rightState=1;
+                ReadValuesAndSend();
+                rightState=0;
+            }
+        });
+
+        Stop.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                stopState=1;
+                ReadValuesAndSend();
+                stopState=0;
+            }
+        });
     }
 
 
@@ -193,19 +195,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Keep screen on while using the app so webview doesn't stop
 
-        ButtonURL= (Button) findViewById(R.id.button2);
-        ButtonURL.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View g)
-            {
-                Intent activity1 = new Intent(MainActivity.this,SetUrl.class);
-                startActivityForResult(activity1,0);
-            }
-        });
-
-
 
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         checkBTState();  //pregunta si encender el bluetooth
+
+        procesamiento();
 
 
         webView1 = (WebView) findViewById(R.id.webView1);
@@ -214,7 +208,15 @@ public class MainActivity extends Activity {
         webView1.setWebViewClient(new WebViewer());
         webView1.loadUrl(url);
 
-       // procesamiento();
+
+        ButtonURL= (Button) findViewById(R.id.button2);
+        ButtonURL.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View g)
+            {
+                Intent activity1 = new Intent(MainActivity.this,SetUrl.class);
+                startActivityForResult(activity1,0);
+            }
+        });
 
     }
 
@@ -228,39 +230,41 @@ public class MainActivity extends Activity {
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void ReadValuesAndSend(){
+    public void ReadValuesAndSend(){
 
-      String sendToArduino="Msg";
+      //"010,100,095,120,1,0,0,1,0,0,0,0"
+      //SL1=10,SL2=100,SL3=95,SL4=120,Claw=closed,Symmetry=no,LR=L,Direction=up
 
+      String SL1= String.format("%03d", servoL1.getProgress());
+      String SL2= String.format("%03d", servoL2.getProgress());
+      String SL3= String.format("%03d", servoL3.getProgress());
+      String SL4= String.format("%03d", servoL4.getProgress());
 
-      double SL1= servoL1.getProgress();
-      sendToArduino.concat(Double.toString(SL1));
-      double SL2= servoL2.getProgress();
-      double SL3= servoL3.getProgress();
-      double SL4= servoL4.getProgress();
-      int clawState;
+      String clawState;
       if (closeClaw.isChecked())
-          clawState=1;
+          clawState="1";
       else
-          clawState=0;
-      int symState;
+          clawState="0";
+
+     String symState;
       if(symmetry.isChecked())
-          symState=1;
+          symState="1";
       else
-          symState=0;
-      int LRState;
+          symState="0";
+
+      String LRState;
       if(leftRight.isChecked())
-          LRState=1;
+          LRState="1";
       else
-          LRState=0;
+          LRState="0";
 
 
+       sendToArduino=SL1+","+SL2+","+SL3+","+SL4+","+clawState+","+symState+","+LRState+","+Integer.toString(upState)+","+Integer.toString(downState)
+                +","+Integer.toString(leftState)+","+Integer.toString(rightState)+","+Integer.toString(stopState);
 
+       //Toast.makeText(getBaseContext(),sendToArduino,Toast.LENGTH_SHORT).show();
 
-
-
-
-
+        sendData(sendToArduino);
 
     }
 
