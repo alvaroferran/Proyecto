@@ -83,38 +83,38 @@ public class MainActivity extends Activity {
 
         servoL1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                ReadValuesAndSend();
+
             }
             public void onStartTrackingTouch(SeekBar seekBar){ // TODO Auto-generated method stub
             }
-            public void onStopTrackingTouch(SeekBar seekBar){}
+            public void onStopTrackingTouch(SeekBar seekBar){ReadValuesAndSend();}
         });
 
         servoL2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                ReadValuesAndSend();
+
            }
            public void onStartTrackingTouch(SeekBar seekBar) {// TODO Auto-generated method stub
            }
-           public void onStopTrackingTouch(SeekBar seekBar) {}
+           public void onStopTrackingTouch(SeekBar seekBar) {ReadValuesAndSend();}
         });
 
         servoL3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                ReadValuesAndSend();
+
             }
             public void onStartTrackingTouch(SeekBar seekBar) {// TODO Auto-generated method stub
             }
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {ReadValuesAndSend();}
         });
 
         servoL4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-               ReadValuesAndSend();
+
             }
             public void onStartTrackingTouch(SeekBar seekBar) {//TODO Auto-generated method stub
             }
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {ReadValuesAndSend();}
         });
 
        closeClaw.setOnClickListener(new OnClickListener() {
@@ -133,6 +133,7 @@ public class MainActivity extends Activity {
                 servoL2.setProgress(90);
                 servoL3.setProgress(90);
                 servoL4.setProgress(90);
+                ReadValuesAndSend();
             }
         });
 
@@ -199,7 +200,7 @@ public class MainActivity extends Activity {
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         checkBTState();  //pregunta si encender el bluetooth
 
-        procesamiento();
+       // procesamiento();
 
 
         webView1 = (WebView) findViewById(R.id.webView1);
@@ -260,12 +261,12 @@ public class MainActivity extends Activity {
 
 
        sendToArduino=SL1+","+SL2+","+SL3+","+SL4+","+clawState+","+symState+","+LRState+","+Integer.toString(upState)+","+Integer.toString(downState)
-                +","+Integer.toString(leftState)+","+Integer.toString(rightState)+","+Integer.toString(stopState);
+                +","+Integer.toString(leftState)+","+Integer.toString(rightState)+","+Integer.toString(stopState)+"+"; //'+' as End Of String
 
        //Toast.makeText(getBaseContext(),sendToArduino,Toast.LENGTH_SHORT).show();
 
         sendData(sendToArduino);
-
+        //sendData("123456789");//test
     }
 
 
@@ -394,13 +395,17 @@ public class MainActivity extends Activity {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-   private void sendData(String message) {
+   public void sendData(String message) {
         byte[] msgBuffer = message.getBytes();
 
         Log.d(TAG, "...Send data: " + message + "...");
 
         try {
+            //outStream.write(msgBuffer);
+
             outStream.write(msgBuffer);
+            outStream.flush();
+
         } catch (IOException e) {
             //String msg = "In onResume() and an exception occurred during write: " + e.getMessage();
             String msg= "Phone not connected to client's Bluetooth";
