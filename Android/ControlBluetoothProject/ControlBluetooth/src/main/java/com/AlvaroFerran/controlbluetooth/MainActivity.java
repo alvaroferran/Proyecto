@@ -335,6 +335,7 @@ public class MainActivity extends Activity {
                 return (BluetoothSocket) m.invoke( MY_UUID,device);
             } catch (Exception e) {
                 Log.e(TAG, "Could not create Insecure RFComm Connection",e);
+                //Toast.makeText(getBaseContext(),"Could not create socket connection", Toast.LENGTH_LONG).show();
             }
         }
         return  device.createRfcommSocketToServiceRecord(MY_UUID);
@@ -345,21 +346,12 @@ public class MainActivity extends Activity {
     public void sendData(String message) {
         byte[] msgBuffer = message.getBytes();
 
-        Log.d(TAG, "...Send data: " + message + "...");
-
         try {
-            //outStream.write(msgBuffer);
-
             outStream.write(msgBuffer);
             outStream.flush();
 
         } catch (IOException e) {
-            //String msg = "In onResume() and an exception occurred during write: " + e.getMessage();
             String msg= "Phone not connected to client's Bluetooth";
-            //if (address.equals("00:00:00:00:00:00"))
-            //    msg = msg + ".\n\nUpdate your server address from 00:00:00:00:00:00 to the correct address on line 35 in the java code";
-            //msg = msg +  ".\n\nCheck that the SPP UUID: " + MY_UUID.toString() + " exists on server.\n\n";
-
             errorExit("Fatal Error", msg);
         }
     }
@@ -367,6 +359,11 @@ public class MainActivity extends Activity {
     /********ERROR EXIT*************************************************************************************/
 
     private void errorExit(String title, String message){
+        /*try     {
+            btSocket.close();   //Close socket
+        } catch (IOException e2) {
+            errorExit("Fatal Error", "In onPause() and failed to close socket." + e2.getMessage() + ".");
+        }*/
         Toast.makeText(getBaseContext(), title + " - " + message, Toast.LENGTH_LONG).show();
         finish();
     }
