@@ -1,30 +1,33 @@
 //Android msg: "010,100,095,120,1,0,0,1,0,0,0,0,+"
 //SL1=10,SL2=100,SL3=95,SL4=120,Claw=closed,Symmetry=no,LR=L,Direction=up
 
-#include <SoftwareSerial.h>
+//#include <SoftwareSerial.h> 
 #include <Servo.h>
 
-int bluetoothTx = 3;
-int bluetoothRx = 2;
+/*int bluetoothTx = 3;
+ int bluetoothRx = 2;
+ SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
+ */
 
-SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
-
-//Endstops
-int EndStopL=15, EndStopR=16;
-//Motor pins
-int dPin_1 = 13; //blue  
-int dPin_2 = 12; //orange
-int dPin_3 = 11; //green
-int dPin_4 = 10; //yellow
 //Variables from android
 int Bar1, Bar2, Bar3, Bar4, Close, Symmetry, Arm, Up, Down, Left, Right, Stop; 
+//Android input string
+String inString ="";
 //Complete string received
 int readOk=0;
 //Servo declarations
 Servo servo1L, servo2L, servo3L, servo4L, servo5L, servo1R, servo2R, servo3R, servo4R, servo5R;
 //Positions of servos
 int pos1L, pos2L, pos3L, pos4L, pos5L, pos1R, pos2R, pos3R, pos4R, pos5R;
+//Endstops
+int EndStopL=15, EndStopR=16;
+//Motor pins
+int dPin_1 = 13;  
+int dPin_2 = 12; 
+int dPin_3 = 11; 
+int dPin_4 = 10; 
 
+/******SETUP FUNCTION*******************************/
 void setup(){
   Serial.begin(9600);
   Serial.flush();
@@ -36,7 +39,7 @@ void setup(){
   pinMode(dPin_4, OUTPUT);
   servo1L.attach(7);// Cambiar todas las variables a pines correctos
   servo2L.attach(8);
-  servo3L.attach(9);
+  servo3L.attach(15);
   servo4L.attach(10);
   servo5L.attach(11);
   servo1R.attach(12);
@@ -44,20 +47,12 @@ void setup(){
   servo3R.attach(14);
   servo4R.attach(4);
   servo5R.attach(5);
-
-  bluetooth.begin(9600);
-  //bluetooth.print("$$$");
-  //delay(100);
-  //bluetooth.println("U,9600,N");
   //bluetooth.begin(9600);
 }
 
-int rxNow=0;
-String inString ="";
-
 /******BT READ FROM ANDROID*************************/
 int readFromAndroid(){
-  char toSend = (char)bluetooth.read();
+  char toSend =(char) Serial.read();// (char)bluetooth.read();
   inString+=toSend;
   if(toSend=='+'){ 
     //Serial.println(inString);
@@ -84,34 +79,34 @@ void parseMessage(){
 /******PROCESS DATA*********************************/
 void processData(){
 
-  if(Arm==1){
+  if(Arm==1){  //If right arm is selected, set values to right servos
     pos1R=Bar1;
     pos2R=Bar2;
     pos3R=Bar3;
     pos4R=Bar4; 
   }
-  else{
+  else{        //Else set to left ones
     pos1L=Bar1;
     pos2L=Bar2;
     pos3L=Bar3;
     pos4L=Bar4; 
   }
 
-  if(Symmetry==1){
+  if(Symmetry==1){  //If symmetry is checked, set inverted values for each arm's link
     pos1L=Bar1;
-    pos1R=Bar1; 
+    pos1R=-Bar1; 
     pos2L=Bar2;
-    pos2R=Bar2;
+    pos2R=-Bar2;
     pos3L=Bar3;
-    pos3R=Bar3;
+    pos3R=-Bar3;
     pos4L=Bar4;
-    pos4R=Bar4;
+    pos4R=-Bar4;
     pos5L=Close;
     pos5R=Close; 
   }  
 
-
 }
+
 
 /******WRITE DATA TO ACTUATORS**********************/
 void writeData(){
@@ -164,29 +159,20 @@ void writeData(){
 }
 
 
+/******MAIN EXECUTION LOOP**************************/
 void loop(){
-
-
-  if(bluetooth.available()){
+  //if(bluetooth.available()){
+  if(Serial.available()){
     readFromAndroid();
   }
   if(readOk==1){
-
     parseMessage();
-
     processData();
-
     writeData();  
-
     inString=""; //Empty message string after using it
     readOk=0;
   }
-
-
 }
-
-
-
 
 
 /******BASE MOVEMENT FUNCTIONS**********************/
@@ -229,5 +215,3 @@ void stopAll(){
   digitalWrite(dPin_4, LOW); 
   //Serial.println("stop");
 }
-
-
