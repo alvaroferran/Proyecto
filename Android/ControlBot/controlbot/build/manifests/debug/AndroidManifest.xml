@@ -1,0 +1,24 @@
+<!-- From: file:/home/alvaro/UC3M/TFG/Github/Proyecto/Android/ControlBot/controlbot/src/main/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.AlvaroFerran.controlbot">
+
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="17"/>
+
+
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
+    <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:theme="@style/AppTheme">
+        <activity android:label="@string/app_name" android:name="com.AlvaroFerran.controlbot.MainActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:label="@string/app_name" android:name="com.AlvaroFerran.controlbot.SetUrl"/>
+    </application>
+
+</manifest>

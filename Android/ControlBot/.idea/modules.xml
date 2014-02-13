@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ControlBot.iml" filepath="$PROJECT_DIR$/ControlBot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/controlbot/controlbot.iml" filepath="$PROJECT_DIR$/controlbot/controlbot.iml" />
+    </modules>
+  </component>
+</project>
+
