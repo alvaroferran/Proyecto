@@ -1,6 +1,9 @@
 package com.AlvaroFerran.controlbot;
 
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.*;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -9,6 +12,8 @@ import java.util.ServiceLoader;
 import java.util.UUID;
 
 import com.AlvaroFerran.controlbot.R;
+
+
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -33,7 +38,12 @@ import android.widget.ToggleButton;
 
 public class MainActivity extends Activity {
 
-    private static final String TAG = "bluetooth1"; //solo para log-> borrar
+
+    String IP="163.117.90.12";
+    int PORT= 3005;
+    Socket mysocket;
+    PrintWriter out;
+
 
     ToggleButton closeClaw;
     SeekBar servoL1,servoL2,servoL3,servoL4;
@@ -46,11 +56,7 @@ public class MainActivity extends Activity {
     private int  upState=0, downState=0, leftState=0, rightState=0, stopState=0; //Buttons pressed or not
     public String sendToArduino;
 
-    private BluetoothAdapter btAdapter = null;
-    private BluetoothSocket btSocket = null;
-    private OutputStream outStream = null; //original
-    private static String address = "00:12:02:10:00:94"; // MAC-address of Bluetooth module
-    private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+
 
     /********ON CREATE**************************************************************************************/
 
@@ -60,9 +66,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Keep screen on while using the app so webview doesn't stop
 
-        btAdapter = BluetoothAdapter.getDefaultAdapter();
-        checkBTState();  //pregunta si encender el bluetooth
-        // procesamiento();
+        new Thread(new ClientThread()).start();
 
         webView1 = (WebView) findViewById(R.id.webView1);
         webView1.getSettings().setJavaScriptEnabled(true);
@@ -92,31 +96,7 @@ public class MainActivity extends Activity {
         procesamiento();
 
 
-        BluetoothDevice device = btAdapter.getRemoteDevice(address);    //Pointer to BT in Robot
 
-        try {
-            btSocket = createBluetoothSocket(device);   //Create Socket to Device
-        } catch (IOException e1) {
-            errorExit("Fatal Error", "In onResume() and socket create failed: " + e1.getMessage() + ".");
-        }
-
-        btAdapter.cancelDiscovery();    //Discovery consumes resources -> Cancel before connecting
-
-        try {
-            btSocket.connect();     //Connect to Robot
-        } catch (IOException e) {
-            try {
-                btSocket.close();   //If unable to connect, close socket
-            } catch (IOException e2) {
-                errorExit("Fatal Error", "In onResume() and unable to close socket during connection failure" + e2.getMessage() + ".");
-            }
-        }
-
-        try {
-            outStream = btSocket.getOutputStream(); //Create output stream
-        } catch (IOException e) {
-            errorExit("Fatal Error", "In onResume() and output stream creation failed:" + e.getMessage() + ".");
-        }
     }
 
     /********ON PAUSE***************************************************************************************/
@@ -125,19 +105,18 @@ public class MainActivity extends Activity {
     public void onPause() {
         super.onPause();
 
-        if (outStream != null) {
-            try {
-                outStream.flush();  //If output stream is not empty, send data
-            } catch (IOException e) {
-                errorExit("Fatal Error", "In onPause() and failed to flush output stream: " + e.getMessage() + ".");
-            }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        try {
+            out.flush();
+            mysocket.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
 
-        try     {
-            btSocket.close();   //Close socket
-        } catch (IOException e2) {
-            errorExit("Fatal Error", "In onPause() and failed to close socket." + e2.getMessage() + ".");
-        }
     }
 
     /********ON ACTIVITY RESULT*****************************************************************************/
@@ -305,72 +284,36 @@ public class MainActivity extends Activity {
         sendToArduino=SL1+","+SL2+","+SL3+","+SL4+","+clawState+","+symState+","+LRState+","+Integer.toString(upState)+","+Integer.toString(downState)
                 +","+Integer.toString(leftState)+","+Integer.toString(rightState)+","+Integer.toString(stopState)+"+"; //'+' as End Of String
 
-        sendData(sendToArduino);    //Message format: "010,100,095,120,1,0,0,1,0,0,0,0+" -> '+' signals end of string
-
+        //sendData(sendToArduino);    //Message format: "010,100,095,120,1,0,0,1,0,0,0,0+" -> '+' signals end of string
+        out.write(sendToArduino);
+        out.flush();
     }
 
-    /********CHECK BT STATE*********************************************************************************/
-
-    private void checkBTState() {
-        // Check for Bluetooth support and then check to make sure it is turned on
-        // Emulator doesn't support Bluetooth and will return null
-        if(btAdapter==null) {
-            errorExit("Fatal Error", "Bluetooth not support");
-        } else {
-            if (btAdapter.isEnabled()) {
-                Log.d(TAG, "...Bluetooth ON...");
-            } else {
-                //Prompt user to turn on Bluetooth
-                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableBtIntent, 1);
-            }
-        }
-    }
-
-    /********CREATE BT SOCKET*******************************************************************************/
-
-    private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
-        if(Build.VERSION.SDK_INT >= 10){
-            try {
-                final Method  m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", new Class[] { UUID.class });
-                return (BluetoothSocket) m.invoke( MY_UUID,device);
-            } catch (Exception e) {
-                Log.e(TAG, "Could not create Insecure RFComm Connection",e);
-                //Toast.makeText(getBaseContext(),"Could not create socket connection", Toast.LENGTH_LONG).show();
-            }
-        }
-        return  device.createRfcommSocketToServiceRecord(MY_UUID);
-    }
-
-    /********SEND DATA**************************************************************************************/
-
-    public void sendData(String message) {
-        byte[] msgBuffer = message.getBytes();
-
-        try {
-            outStream.write(msgBuffer);
-            outStream.flush();
-
-        } catch (IOException e) {
-            String msg= "Phone not connected to client's Bluetooth";
-            errorExit("Fatal Error", msg);
-        }
-    }
 
     /********ERROR EXIT*************************************************************************************/
 
     private void errorExit(String title, String message){
-        /*try     {
-            btSocket.close();   //Close socket
-        } catch (IOException e2) {
-            errorExit("Fatal Error", "In onPause() and failed to close socket." + e2.getMessage() + ".");
-        }*/
         Toast.makeText(getBaseContext(), title + " - " + message, Toast.LENGTH_LONG).show();
         finish();
     }
 
 
+    class ClientThread implements Runnable {
 
+        @Override
+        public void run() {
+            try {
+                InetAddress serverAddr = InetAddress.getByName(IP);
+                mysocket = new Socket(serverAddr, PORT);
+                out = new PrintWriter(mysocket.getOutputStream(),true);
+            } catch (UnknownHostException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+
+    }
 
 
 

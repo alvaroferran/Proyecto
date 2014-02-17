@@ -22,7 +22,7 @@ int pos1L, pos2L, pos3L, pos4L, pos5L, pos1R, pos2R, pos3R, pos4R, pos5R;
 //Endstops
 int EndStopL=15, EndStopR=16;
 //Motor pins
-int dPin_1 = 13;  
+int dPin_1 = 16;  
 int dPin_2 = 12; 
 int dPin_3 = 11; 
 int dPin_4 = 10; 
@@ -40,9 +40,9 @@ void setup(){
   servo1L.attach(7);// Cambiar todas las variables a pines correctos
   servo2L.attach(8);
   servo3L.attach(15);
-  servo4L.attach(10);
-  servo5L.attach(11);
-  servo1R.attach(12);
+  //servo4L.attach(10);
+  //servo5L.attach(11);
+  //servo1R.attach(12);
   servo2R.attach(13);
   servo3R.attach(14);
   servo4R.attach(4);
@@ -110,10 +110,10 @@ void processData(){
 
 /******WRITE DATA TO ACTUATORS**********************/
 void writeData(){
-  Serial.print("servo 1L:");
+  /*Serial.print("servo 1L:");
   Serial.println(pos1L);
   Serial.print("servo 1R:");
-  Serial.println(pos1R);
+  Serial.println(pos1R);*/
 
   servo1L.write(pos1L);
   servo2L.write(pos2L);
@@ -177,16 +177,16 @@ void loop(){
 
 /******BASE MOVEMENT FUNCTIONS**********************/
 void  front() {
-  digitalWrite(dPin_1, HIGH); 
-  digitalWrite(dPin_2, LOW);
+  digitalWrite(dPin_1, LOW); 
+  digitalWrite(dPin_2, HIGH);
   digitalWrite(dPin_3, HIGH); 
   digitalWrite(dPin_4, LOW);
   //Serial.println("front");
 }
 
 void back(){
-  digitalWrite(dPin_1, LOW);
-  digitalWrite(dPin_2, HIGH);
+  digitalWrite(dPin_1, HIGH);
+  digitalWrite(dPin_2, LOW);
   digitalWrite(dPin_3, LOW);
   digitalWrite(dPin_4, HIGH);
   //Serial.println("back");
@@ -195,16 +195,16 @@ void back(){
 void  right() {
   digitalWrite(dPin_1, LOW);
   digitalWrite(dPin_2, HIGH);
-  digitalWrite(dPin_3, HIGH); 
-  digitalWrite(dPin_4, LOW);
+  digitalWrite(dPin_3, LOW); 
+  digitalWrite(dPin_4, HIGH);
   //Serial.println("right");
 }
 
 void  left() {
-  digitalWrite(dPin_1, LOW);
-  digitalWrite(dPin_2, HIGH);
-  digitalWrite(dPin_3, LOW); 
-  digitalWrite(dPin_4, HIGH);
+  digitalWrite(dPin_1, HIGH);
+  digitalWrite(dPin_2, LOW);
+  digitalWrite(dPin_3, HIGH); 
+  digitalWrite(dPin_4, LOW);
   //Serial.println("left");
 }
 
