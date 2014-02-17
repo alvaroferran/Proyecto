@@ -39,7 +39,9 @@ import android.widget.ToggleButton;
 public class MainActivity extends Activity {
 
 
-    String IP="163.117.90.12";
+    //String IP="163.117.90.12";
+    //String IP="192.168.42.1";
+    String IP="192.168.1.132";
     int PORT= 3005;
     Socket mysocket;
     PrintWriter out;
@@ -47,6 +49,7 @@ public class MainActivity extends Activity {
 
     ToggleButton closeClaw;
     SeekBar servoL1,servoL2,servoL3,servoL4;
+    private int progress1=90, progress2=90, progress3=90, progress4=90;
     private WebView webView1;
     private String url="http://192.168.42.1:8080/javascript_simple.html";
     private Button Reset, Up, Down,Left, Right,Stop, ButtonURL;
@@ -91,12 +94,8 @@ public class MainActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-
         webView1.loadUrl(url);
         procesamiento();
-
-
-
     }
 
     /********ON PAUSE***************************************************************************************/
@@ -107,16 +106,18 @@ public class MainActivity extends Activity {
 
     }
 
+    /********ON STOP****************************************************************************************/
+
     @Override
     public void onStop() {
         super.onStop();
         try {
+            out.write("quit");
             out.flush();
             mysocket.close();
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-
     }
 
     /********ON ACTIVITY RESULT*****************************************************************************/
@@ -149,38 +150,42 @@ public class MainActivity extends Activity {
 
         servoL1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-
+                progress1=progress;
+                ReadValuesAndSend();
             }
             public void onStartTrackingTouch(SeekBar seekBar){ // TODO Auto-generated method stub
             }
-            public void onStopTrackingTouch(SeekBar seekBar){ReadValuesAndSend();}
+            public void onStopTrackingTouch(SeekBar seekBar){}
         });
 
         servoL2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-
+                progress2=progress;
+                ReadValuesAndSend();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {// TODO Auto-generated method stub
             }
-            public void onStopTrackingTouch(SeekBar seekBar) {ReadValuesAndSend();}
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
         servoL3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-
+                progress3=progress;
+                ReadValuesAndSend();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {// TODO Auto-generated method stub
             }
-            public void onStopTrackingTouch(SeekBar seekBar) {ReadValuesAndSend();}
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
         servoL4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-
+                progress4=progress;
+                ReadValuesAndSend();
             }
             public void onStartTrackingTouch(SeekBar seekBar) {//TODO Auto-generated method stub
             }
-            public void onStopTrackingTouch(SeekBar seekBar) {ReadValuesAndSend();}
+            public void onStopTrackingTouch(SeekBar seekBar) {}
         });
 
         closeClaw.setOnClickListener(new OnClickListener() {
@@ -258,10 +263,11 @@ public class MainActivity extends Activity {
 
     public void ReadValuesAndSend(){
 
-        String SL1= String.format("%03d", servoL1.getProgress());   //Force seekbar values to be in 3 digit format
-        String SL2= String.format("%03d", servoL2.getProgress());
-        String SL3= String.format("%03d", servoL3.getProgress());
-        String SL4= String.format("%03d", servoL4.getProgress());
+        //String SL1= String.format("%03d", servoL1.getProgress());   //Force seekbar values to be in 3 digit format
+        String SL1= String.format("%03d", progress1);
+        String SL2= String.format("%03d", progress2);
+        String SL3= String.format("%03d", progress3);
+        String SL4= String.format("%03d", progress4);
 
         String clawState;
         if (closeClaw.isChecked())
