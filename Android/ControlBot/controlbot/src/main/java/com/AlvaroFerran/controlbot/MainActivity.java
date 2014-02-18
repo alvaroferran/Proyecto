@@ -40,8 +40,8 @@ public class MainActivity extends Activity {
 
 
     //String IP="163.117.90.12";
-    //String IP="192.168.42.1";
-    String IP="192.168.1.132";
+    String IP="192.168.42.1";
+    //String IP="192.168.1.132";
     int PORT= 3005;
     Socket mysocket;
     PrintWriter out;
