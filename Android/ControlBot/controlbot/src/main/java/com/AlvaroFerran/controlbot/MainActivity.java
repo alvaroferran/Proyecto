@@ -200,6 +200,10 @@ public class MainActivity extends Activity {
         {
             public void onClick(View v)
             {
+                servoL1.setProgress(90);
+                servoL2.setProgress(90);
+                servoL3.setProgress(90);
+                servoL4.setProgress(90);
                 progress1=90;
                 progress2=90;
                 progress3=90;

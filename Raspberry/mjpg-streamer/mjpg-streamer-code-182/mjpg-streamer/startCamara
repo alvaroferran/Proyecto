@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo `cd mjpg-streamer/mjpg-streamer-code-182/mjpg-streamer ;
+ ./mjpg_streamer -i "./input_uvc.so -n -f 15 -y -r QVGA" -o "./output_http.so -n -w ./www"`
