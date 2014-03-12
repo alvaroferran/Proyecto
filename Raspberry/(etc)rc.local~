@@ -1,0 +1,15 @@
+#Start ip Server
+/etc/init.d/isc-dhcp-server start
+
+#Start webcam streaming
+/home/pi/mjpg-streamer/startStreaming.sh &
+sleep 0.3
+
+#Start Android to Arduino dumping
+#Don't put  &  character at end-> background service, print and similar services dont work and program interrupts
+/home/pi/AndroidToArduino/startA2A.sh 
+
+
+exit 0
+
+
