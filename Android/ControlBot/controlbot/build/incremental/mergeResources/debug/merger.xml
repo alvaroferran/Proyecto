@@ -5577,16 +5577,16 @@ useLogo|showHome|showTitle
                     msgid="4076576682505996667" >"Atlikta"
                 </string>
                 <string
+                    name="abc_shareactionprovider_share_with_application"
+                    msgid="7165123711973476752" >"Bendrinti naudojant „%s“"
+                </string>
+                <string
                     name="abc_action_bar_home_description"
                     msgid="4600421777120114993" >"Eiti į pagrindinį puslapį"
                 </string>
                 <string
                     name="abc_searchview_description_search"
                     msgid="8264924765203268293" >"Paieška"
-                </string>
-                <string
-                    name="abc_shareactionprovider_share_with_application"
-                    msgid="7165123711973476752" >"Bendrinti naudojant „%s“"
                 </string>
             </file>
             <file
@@ -6579,16 +6579,16 @@ middle
                     msgid="2031811694353399454" >"Επιλέξτε κάποια εφαρμογή"
                 </string>
                 <string
+                    name="abc_action_menu_overflow_description"
+                    msgid="3588849162933574182" >"Περισσότερες επιλογές"
+                </string>
+                <string
                     name="abc_searchview_description_clear"
                     msgid="3691816814315814921" >"Διαγραφή ερωτήματος"
                 </string>
                 <string
                     name="abc_searchview_description_voice"
                     msgid="893419373245838918" >"Φωνητική αναζήτηση"
-                </string>
-                <string
-                    name="abc_action_menu_overflow_description"
-                    msgid="3588849162933574182" >"Περισσότερες επιλογές"
                 </string>
             </file>
             <file
@@ -7458,6 +7458,16 @@ false
                 qualifiers="hdpi"
                 type="drawable" />
             <file
+                name="ic_launcher_web"
+                path="/home/alvaro/UC3M/TFG/Github/Proyecto/Android/ControlBot/controlbot/src/main/res/drawable-hdpi/ic_launcher_web.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="activity_init_screen"
+                path="/home/alvaro/UC3M/TFG/Github/Proyecto/Android/ControlBot/controlbot/src/main/res/layout/activity_init_screen.xml"
+                qualifiers=""
+                type="layout" />
+            <file
                 name="activity_set_url"
                 path="/home/alvaro/UC3M/TFG/Github/Proyecto/Android/ControlBot/controlbot/src/main/res/layout/activity_set_url.xml"
                 qualifiers=""
@@ -7517,6 +7527,8 @@ false
                 </string>
                 <string name="hello_world" >Hello world!
                 </string>
+                <string name="title_activity_init_screen" >InitScreen
+                </string>
             </file>
             <file
                 path="/home/alvaro/UC3M/TFG/Github/Proyecto/Android/ControlBot/controlbot/src/main/res/values-w820dp/dimens.xml"
@@ -7537,6 +7549,11 @@ false
             <file
                 name="main"
                 path="/home/alvaro/UC3M/TFG/Github/Proyecto/Android/ControlBot/controlbot/src/main/res/menu/main.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="init_screen"
+                path="/home/alvaro/UC3M/TFG/Github/Proyecto/Android/ControlBot/controlbot/src/main/res/menu/init_screen.xml"
                 qualifiers=""
                 type="menu" />
             <file

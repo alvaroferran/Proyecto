@@ -14,6 +14,7 @@ import java.util.UUID;
 import com.AlvaroFerran.controlbot.R;
 
 
+import android.support.v7.app.ActionBar;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -23,6 +24,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -36,7 +39,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class MainActivity extends Activity {
+public class
+        MainActivity extends Activity {
 
 
     //String IP="163.117.90.12";
@@ -58,7 +62,8 @@ public class MainActivity extends Activity {
 
     private int  upState=0, downState=0, leftState=0, rightState=0, stopState=0; //Buttons pressed or not
     public String sendToArduino;
-
+    public boolean connected=false;
+    public TextView text;
 
 
     /********ON CREATE**************************************************************************************/
@@ -66,10 +71,21 @@ public class MainActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Keep screen on while using the app so webview doesn't stop
 
         new Thread(new ClientThread()).start();
+
+        setContentView(R.layout.activity_main);
+
+        text = (TextView) findViewById(R.id.textView);
+     /*  if(connected==true)
+           text.setText("connected");
+       else
+           text.setText("nope");
+        //  setContentView(R.layout.activity_init_screen);
+*/
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Keep screen on while using the app so webview doesn't stop
+
 
         webView1 = (WebView) findViewById(R.id.webView1);
         webView1.getSettings().setJavaScriptEnabled(true);
@@ -86,6 +102,16 @@ public class MainActivity extends Activity {
             }
         });
 
+     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+
+        //return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
 
@@ -315,7 +341,10 @@ public class MainActivity extends Activity {
             try {
                 InetAddress serverAddr = InetAddress.getByName(IP);
                 mysocket = new Socket(serverAddr, PORT);
+
                 out = new PrintWriter(mysocket.getOutputStream(),true);
+               // if(mysocket.isBound())
+                 //   connected=true;
             } catch (UnknownHostException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {

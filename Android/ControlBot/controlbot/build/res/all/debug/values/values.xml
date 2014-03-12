@@ -523,6 +523,7 @@
     <string name="btnR"> > </string>
     <string name="btnU"> v </string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_init_screen">InitScreen</string>
     <string name="title_activity_set_url">SetUrl</string>
     <!-- From: file:/home/alvaro/UC3M/TFG/Github/Proyecto/Android/ControlBot/controlbot/src/main/res/values/styles.xml -->
     <eat-comment />

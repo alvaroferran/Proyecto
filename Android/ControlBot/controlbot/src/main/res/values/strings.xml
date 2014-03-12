@@ -7,8 +7,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_example">Example action</string>
     <string name="btnL"> &lt; </string>
-    <string name="btnR"> &gt; </string>
+    <string name="btnR"> > </string>
     <string name="btnU"> v </string>
     <string name="btnD"> v </string>
+    <string name="title_activity_init_screen">InitScreen</string>
 
 </resources>
