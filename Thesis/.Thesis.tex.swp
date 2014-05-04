@@ -21,7 +21,7 @@
 \usepackage{titlesec}
 
 
-\usepackage{float} %change floating behaviour of figures
+\usepackage{float} %change floating behaviour of figures8
 \usepackage{listings} %include code
 \usepackage{pdfpages} %include complete pdfs
 \pgfdeclarelayer{background}

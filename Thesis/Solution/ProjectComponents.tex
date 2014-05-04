@@ -1,11 +1,3 @@
-%%%%%%%%%% 3D SOFTWARE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{3D Modelling Software}
-
-
-
-
-
-
 %%%%%%%%%% 3D PRINTER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{3D Printer}
 
@@ -25,6 +17,49 @@ In this theses a RepRap Prusa Air 2 designed by Manuel Palacios is used. It is o
 
 $\rightarrow$ \textbf {Terminal Imprusión Autorreplicante (T.I.A) }
 (add info + pic)
+Built within the scope of the Clone Wars project
+
+
+
+%%%%%%%%%% 3D SOFTWARE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Software}
+3D printers work by turning 3D models into plastic parts. These models are first modelled in a CAD program and then processed with a \textit{slicing} software to divide the model into layers of G-code, which is the standard language interpreted by CNCs. This is then introduced in a third piece of software which feeds it to the printer.
+
+	\subsubsection{3D Modelling }
+	In this project Sketchup has been used to create the printed parts. Owned by the company Trimble Navigation it is a WYSIWYG (What You See Is What You Get) modelling editor with a large online warehouse of parts available for download. \\
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.4]{images/sketchup-arm.png}
+			\caption{SketchUp Software}
+			\label{}
+		\end{figure}
+		\bigskip
+
+	In order to make it compatible with the slicing sofware, Sketchup's propietary format, \textit{SKP}, has to be converted to the standard \textit{STL}. In order to accomplish this the \textit{Su2stl.rb} plugin is installed. A new \textit{Plugins} menu appears in Sketchup which contains the Import/Export options, where the desired output format and model units are specified.
+
+
+
+	\subsubsection{G-Code Generator} 
+	Once the model is converted to \textit{STL} it then has to be sliced. Since 3D printers work by building layer upon layer of plastic, the model has to be transformed into the same format. The G-code generator converts the CAD model into layers of CNC instructions. There are three main slicing programs, each with their own benefits:
+
+		\begin{itemize}
+		  
+		  \item Skeinforge: \hfill \\
+		  The first slicing program used in homemade 3D printers. It is by far the most complete of the three. It allows the user to control each and every imaginable setting of the printer, from the axis' speeds to the retraction distance of the plastic into the extruder while moving. However, because of this it has a very steep learning curve which makes it unsuitable for the average consumer.
+
+		  \item Slic3r:  \hfill \\
+		  Slic3r was created as an user-friendly software, which only gives the final user a choice in the basic settings, such as printing speeds, filament widths or part infills. As a result it is an easier program to slice parts with a sufficient level of customization. It has nonetheless problems converting models with imperfections or broken shapes.
+		  
+		  \item Cura \hfill \\
+		  Finally, Cura is also designed with user-friendliness in mind. This slicer is more robust than Slic3r, in that it will accept models with imperfections, and will try to correct them. It also features a box simulating the print area in which the model can be moved around, turned or scaled before printing.
+		  This last feature is specially useful if minor changes need to be made, without returning to the CAD software.
+		
+		\end{itemize}
+
+
+
+	\subsubsection{CNC Controller}
 
 
 
