@@ -1,4 +1,4 @@
-\documentclass[11pt, a4paper,openany]{article}
+\documentclass[11pt, a4paper,openany]{article}%openany-> remove blank page after part in book
 \usepackage[utf8]{inputenc}
 %\usepackage{graphicx,verbatim,eurosym,epstopdf,mathtools}
 \usepackage{gensymb}
@@ -21,13 +21,13 @@
 \usepackage{titlesec}
 
 
-\usepackage{float} %change floating behaviour of figures
+\usepackage{float} %change floating behaviour of figures8
 \usepackage{listings} %include code
 \usepackage{pdfpages} %include complete pdfs
 \pgfdeclarelayer{background}
 \pgfsetlayers{background,main}
 
-\usepackage{sectsty}
+\usepackage{sectsty}%change code of part,section...
 \partfont{\color{part}}
 \sectionfont{\color{section}}
 \subsectionfont{\color{subsection}}
@@ -51,12 +51,13 @@
 \selectlanguage{english}
 
 \newpage
+\pagenumbering{Roman} 
 \tableofcontents
 \clearpage
 \listoffigures 
 \clearpage
 
-
+\pagenumbering{arabic}
 % Intro
 \part{Introduction} 
 \input{Introduction/Introduction}
