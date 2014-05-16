@@ -31,4 +31,3 @@ while 1:
 		print data
 		#arduino.write(data)
 	    	#arduino.flush()
-

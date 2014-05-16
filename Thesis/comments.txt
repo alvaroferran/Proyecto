@@ -1,3 +1,41 @@
-http://www.raspberrypi.org/help/faqs/#introWhatIs  ("Raspberry what is")
+http://www.raspberrypi.org/help/faqs/#introWhatIs  ("Raspberry what is")  
 
 http://batteryuniversity.com/learn/article/whats_the_best_battery ("battery")
+http://arduino.cc/en/Main/arduinoBoardNano (arduino specifications)
+
+State of art:
+
+	-Hero series (first home robots)  http://en.wikipedia.org/wiki/HERO_%28robot%29
+	-iRobot series (roomba etc)  http://www.irobot.com/us/learn/home.aspx
+	-Honda Asimo http://en.wikipedia.org/wiki/ASIMO
+	-Asibot UC3M  http://roboticslab.uc3m.es/roboticslab/robot.php?id_robot=3
+	-
+	-
+	-
+
+
+
+Alternativas de diseño: 
+	no realizadas: ruedas vs piernas -> más estabilidad en suelo liso, más facil de controlar...
+				   2 vs 4 ruedas -> más barato, posibilidad de control diferencial, ... 	
+				   pinza vs mano -> barato, rapido guay.. 
+
+
+	-versiones de brazo (sketchup capturas de imagen)
+	-versiones de software -> captura app con todos los sliders
+
+						
+	-diseño con bluetooth
+	-diseño con wifi-> conectar a red wifi
+					-> crear red ad-hoc (problemas con android)
+					-> crear punto de acceso: version utilizada
+
+
+
+Trabajo futuro:
+	pinza vs vacuum gripper-> coge objetos mas pequeños y mejor
+	posibilidad de navegación autonoma ex pathfinder con opencv
+	añadir posibilidad de "programacion" de rutinas por parte del usuario (ex traer vaso de agua todas las mañanas)
+	añadir control por voz 
+	añadir versión para iPhone
+	
