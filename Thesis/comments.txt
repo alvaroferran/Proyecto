@@ -1,5 +1,9 @@
 http://www.raspberrypi.org/help/faqs/#introWhatIs  ("Raspberry what is")  
 
+http://en.wikipedia.org/wiki/Buck_converter  (Buck converter + efficiency)
+
+http://www.businessinsider.com/iphone-v-android-market-share-2014-5 (Android vs iphone marketshare)
+
 http://batteryuniversity.com/learn/article/whats_the_best_battery ("battery")
 http://arduino.cc/en/Main/arduinoBoardNano (arduino specifications)
 

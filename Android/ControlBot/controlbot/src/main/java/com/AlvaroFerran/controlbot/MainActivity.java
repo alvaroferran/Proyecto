@@ -39,12 +39,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-public class
-        MainActivity extends Activity {
-
+public class MainActivity extends Activity {
 
     //String IP="163.117.90.12";
-    String IP="192.168.42.1";
+    String IP="192.168.42.1"; //Given to Raspberry Pi automatically when it turns on
     //String IP="192.168.1.132";
     int PORT= 3005;
     Socket mysocket;
@@ -333,6 +331,8 @@ public class
         finish();
     }
 
+
+    /********SOCKET CLIENT THREAD***************************************************************************/
 
     class ClientThread implements Runnable {
 
