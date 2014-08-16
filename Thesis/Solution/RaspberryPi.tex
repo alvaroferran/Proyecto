@@ -23,7 +23,7 @@ This configuration aimed to solve the problem of usability, since the phone woul
 In order to create implement this two files need to be set up. Firstly, the computer must be given the specific details of the new network to be created. Here, the contents of Listing \ref{ad-hoc} must be included into the file \textit{/etc/network/interfaces} . \\
 
 	\begin{minipage}{\linewidth}%to ensure it stays in the same page
-	\begin{lstlisting}[label=ad-hoc,caption=Ad-Hoc Configuration {[} /etc/network/interfaces {]}  ]
+	\begin{lstlisting}[label=ad-hoc,caption=Ad-Hoc Configuration {[} /etc/network/interfaces {]} ,language=python ]
   auto lo
   iface lo inet loopback
   iface eth0 inet dhcp
@@ -46,7 +46,7 @@ To provide an IP to the client the package \textit{DHCP Server} must be installe
 Listing \ref{dhcp-server-adhoc} must then be included in file \textit{/etc/dhcp/dhcpd.conf} \\
 
 	\begin{minipage}{\linewidth}%to ensure it stays in the same page
-	\begin{lstlisting}[label=dhcp-server-adhoc,caption=DHCP Server Configuration {[} /etc/dhcp/dhcpd.conf {]}  ]
+	\begin{lstlisting}[label=dhcp-server-adhoc,caption=DHCP Server Configuration {[} /etc/dhcp/dhcpd.conf {]} ,language=python ]
   ddns-update-style interim;
   default-lease-time 600;
   max-lease-time 7200;
@@ -71,7 +71,7 @@ In order to create the AP the  \textit{Hostapd} and  \textit{Isc-dhcp-server} pa
 Once the needed packages have been installed the Dynamic Host Configuration Protocol (DHCP) server must be configured in order to assign IP addresses to clients. The contents of \textit{/etc/dhcp/dhcpd.conf} must be replaced with those in Listing \ref{dhcp-server-ap}. \\
 
 	\begin{minipage}{\linewidth}%to ensure it stays in the same page
-	\begin{lstlisting}[label=dhcp-server-ap,caption=DHCP Server Configuration {[} /etc/dhcp/dhcpd.conf {]}  ]
+	\begin{lstlisting}[label=dhcp-server-ap,caption=DHCP Server Configuration {[} /etc/dhcp/dhcpd.conf {]} ,language=python ]
   # Sample configuration file for ISC dhcpd for Debian
   # Attention: If /etc/ltsp/dhcpd.conf exists, that will be used as
   # configuration file instead of this file.
@@ -108,7 +108,7 @@ Once the needed packages have been installed the Dynamic Host Configuration Prot
 The next step is to establish the interface on which DHCP Server should assign IP addresses. This is done by copying the contents of Listing \ref{dhcp-server-defaults} to the file \textit{/etc/default/isc-dhcp-server}.\\
 
 	\begin{minipage}{\linewidth}%to ensure it stays in the same page
-	\begin{lstlisting}[label=dhcp-server-defaults,caption=DHCP Server Defaults {[} /etc/default/isc-dhcp-server {]}  ]
+	\begin{lstlisting}[label=dhcp-server-defaults,caption=DHCP Server Defaults {[} /etc/default/isc-dhcp-server {]} ,language=python ]
   # Defaults for dhcp initscript
   # sourced by /etc/init.d/dhcp
   # installed at /etc/default/isc-dhcp-server by the maintainer scripts
@@ -127,7 +127,7 @@ The next step is to establish the interface on which DHCP Server should assign I
 Afterwards, the "wlan0" interface must be set up. In this case any previous configuration will be deleted by replacing the contents of \textit{/etc/network/interfaces} with those of Listing \ref{wlan0}.\\
 
 	\begin{minipage}{\linewidth}%to ensure it stays in the same page
-	\begin{lstlisting}[label=wlan0,caption=Interface Configuration {[} /etc/dnetwork/interfaces {]}  ]
+	\begin{lstlisting}[label=wlan0,caption=Interface Configuration {[} /etc/dnetwork/interfaces {]} ,language=python ]
   auto lo
 
   iface lo inet loopback
@@ -148,7 +148,7 @@ The DHCP configuration is now complete.\\
 The Access Point setup has to be established next. A password-protected network will be created to ensure a secure connection. In this case its name will be "RaspiWifi" and its password "raspberry". Again, the contents of \textit{/etc/hostapd/hostapd.conf} should be replaced by those of Listing \ref{ap-config}. This file is very sensitive, so no extra spaces are allowed.\\
 
 	\begin{minipage}{\linewidth}%to ensure it stays in the same page
-	\begin{lstlisting}[label=ap-config,caption=AP Configuration {[} /etc/hostapd/hostapd.conf {]}  ]
+	\begin{lstlisting}[label=ap-config,caption=AP Configuration {[} /etc/hostapd/hostapd.conf {]} ,language=python ]
   interface=wlan0
   driver=rtl871xdrv
   ssid=RaspiWifi
@@ -170,7 +170,7 @@ The Access Point setup has to be established next. A password-protected network 
 Finally, the Raspberry has to be told where to find the configuration file previously created. The file \textit{/etc/default/hostapd} must include the contents of Listing \ref{ap-default}.
 
 	\begin{minipage}{\linewidth}%to ensure it stays in the same page
-	\begin{lstlisting}[label=ap-default,caption=AP Defaults {[} /etc/default/hostapd {]}  ]
+	\begin{lstlisting}[label=ap-default,caption=AP Defaults {[} /etc/default/hostapd {]} ,language=python  ]
   # Defaults for hostapd initscript
   #
   # See /usr/share/doc/hostapd/README.Debian for information about
@@ -200,6 +200,64 @@ This concludes the wireless communications setup, finally using the wifi Access 
 
 \subsection{IP/UART Bridge} 
 
+It uses the Adafruit-CharLCD library, which can be downloaded from their \href{https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code}{repository}, to enable writing to the LCD screen.\\
+
+Figure \ref{rasbpiFlowchart} presents a flowchart of the socket to serial connection software.\\
+
+The program creates a TCP socket server which continuously searches for clients until one of them connects. Once a connection is secured, the LCD changes from "Awaiting clien" to "Client connected" and the program waits instead to receive data from the client. The data received is examined to check if it is a "quit" string, in which case the connection is closed and the program awaits another client. On the other hand, if the data is a valid string from the client, it is passed on through serial communication to the Arduino for it to use.
+
+%\includesvg{images/Diagrams/rasbpi1}
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[scale=.8]{images/Diagrams/rasbpi.png}
+      \caption{IP/UART program flowchart }
+      \label{rasbpiFlowchart}
+  \end{figure}
+  \bigskip
+
+	% \begin{minipage}{\linewidth}%to ensure it stays in the same page
+ %  \begin{lstlisting}[label=ip-uart,caption=IP/UART Bridge, language=python  ]
+
+ %  # Creates a socket server and dumps the received data to the Arduino
+
+ %  from Adafruit_CharLCD import Adafruit_CharLCD
+ %  from subprocess import *
+ %  from time import sleep
+ %  import serial
+ %  import socket
+
+ %  arduino=serial.Serial('/dev/ttyACM0', 9600)
+
+ %  server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ %  server_socket.bind(("", 3005))
+ %  server_socket.listen(1)
+
+ %  print 'Socket started'
+ %  lcd = Adafruit_CharLCD()
+ %  lcd.begin(16,1)
+
+ %  while 1:
+
+ %    lcd.clear()
+ %    lcd.message('Awaiting client')
+ %    client_socket, address = server_socket.accept()
+ %    lcd.clear()
+ %    lcd.message('Client connected')
+
+ %    while 1:
+ %      data = client_socket.recv(4096)
+ %      if data == 'quit' :
+ %        break
+ %      arduino.write(data)
+ %      arduino.flush()
+
+ %  \end{lstlisting}
+ %  \end{minipage}
+
+
+
+
 
 
 
@@ -211,7 +269,7 @@ To do so, the tasks previously defined are called automatically from a script wh
 
 
 	\begin{minipage}{\linewidth}%to ensure it stays in the same page
-	\begin{lstlisting}[label=ap-default,caption=Initialization Script {[} /etc/rc.local {]}  ]
+	\begin{lstlisting}[label=ap-default,caption=Initialization Script {[} /etc/rc.local {]} ,language=python ]
   #!/bin/bash
 
   #Start ip Server

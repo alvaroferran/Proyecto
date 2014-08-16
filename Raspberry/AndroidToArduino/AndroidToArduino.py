@@ -26,8 +26,8 @@ while 1:
 
 	while 1:
 		data = client_socket.recv(4096)
-       		if data == 'quit' :
+       	if data == 'quit' :
 			break
 		print data
 		#arduino.write(data)
-	    	#arduino.flush()
+	    #arduino.flush()
