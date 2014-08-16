@@ -44,6 +44,16 @@
 
 \def\mathLarge#1{\mbox{\Large $#1$}} %Define the size of fractions
 
+%<code citing>%
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFont{gray}{\color{gray}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{15cm}{#1#2#3}}}%\textwidth}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+%</code citing>%
 
 \begin{document}
 
@@ -59,6 +69,8 @@
 \tableofcontents
 \clearpage
 \listoffigures 
+\clearpage
+\lstlistoflistings
 \clearpage
 
 \pagenumbering{arabic}
