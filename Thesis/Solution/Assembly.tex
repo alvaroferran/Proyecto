@@ -13,9 +13,23 @@ list of all the parts with images
 images with assembly 
 
 diagram of complete assembly with servo+motor letters assigned
+
+
+
+
+
+
+
+
+\subsection{Connections}
+
+This section will present how the different elements composing the robot are connected, first from the electrical point of view, then from a means of communication angle and finally from the different programs' interactions perspective.
+
+
+
 %%%%%%%%%% ELECTRIC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Electrical connections}
+\subsubsection{Electrical connections}
 
 Figure \ref{electricDiagram} shows how the different electric and electronic components are interconnected.  As it can be seen, different voltage levels co-exist within the robot, so regulators are placed to ensure the components function correctly. \\
 
@@ -33,11 +47,14 @@ Finally, the Raspberry communicates with the Arduino through the former's UART p
 	\end{figure}
 	\bigskip
 	
+	
+
 table with servo +motor letters assigned to arduino pins
+	
 
 %%%%%%%%%% LOGIC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Logic connections}
+\subsubsection{Logic connections}
 
 Figure \ref{logicDiagram} shows how the different components communicate between themselves. As it can be seen, the user controls the robot from the Android application. This implements a bidirectional communication over wifi with the Raspberry Pi, which is used to both send the Raspberry data concerning the movement of the different motors and to receive the video stream from the robot's onboard camera. The Raspberry then communicates over Serial port with the Arduino, which takes care of the data received to obey the user's commands.\\
 
@@ -48,3 +65,18 @@ Figure \ref{logicDiagram} shows how the different components communicate between
 			\label{logicDiagram}
 	\end{figure}
 	\bigskip
+
+%%%%%%%%%% SW %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Software connections}
+
+Figure \ref{swDiagram} shows how the different programs interconnect the various components. It can thus be seen that the Raspberry Pi will first create a wifi network and then start to stream video through it. The android phone on the other hand will connect itself to the recently created network and will use it to emit the commands given by the user. The Raspberry will have already started the IP/UART Bridge, and will send the data received from the phone to the Arduino. Finally, the latter will execute its code to execute the orders received.\\
+
+	\begin{figure}[H]
+			\centering
+			\includegraphics[width=15cm, angle=0]{images/Diagrams/software.png}
+			\caption{Software connections diagram }
+			\label{swDiagram}
+	\end{figure}
+	\bigskip
+

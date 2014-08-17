@@ -114,7 +114,7 @@ public class MainActivity extends Activity {
 
 
     /********ON RESUME**************************************************************************************/
-
+/*try: public void onRestart(){*/
     @Override
     public void onResume() {
         super.onResume();

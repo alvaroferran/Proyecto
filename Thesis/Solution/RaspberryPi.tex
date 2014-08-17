@@ -2,17 +2,42 @@ The Raspberry Pi carries out three main duties to ensure everything works correc
 
  These are all placed into the \textit{/etc/rc.local} file so the system initializes them automatically each time the robot is turned on, with no need for human interaction.
 
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Wireless Communications}% WiFi Acces Point
 
 The chosen means of communication between human and humanoid was wifi. This is so because it is a widely established technology, with great compatibility and in a great number of cases is already installed in the homes of users. It also has a greater speed and range than other technologies, like bluetooth, which are an asset in the case of streaming images.\\
 
 Three methods were considered: connection to an existing wifi network, creation of an Ad-Hoc connection and establishment of a wifi Access Point.
 
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{Existing network:}
 
 The most straightforward solution is to simply connect the robot to the user's existing wifi network. This enables the user to control it from anywhere in the world, expanding its uses. However, some configuration is required, namely selecting the desired network and introducing the password, which complicates the setup by having to add a keyboard and a display.\\
 
 This method would thus be suitable for experienced users and developpers, but not necessarily for the average seniors it is intended to help.
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Ad-Hoc connection:}
 
@@ -62,13 +87,35 @@ Listing \ref{dhcp-server-adhoc} must then be included in file \textit{/etc/dhcp/
 After rebooting the Raspberry Pi, the Ad-Hoc network is created and ready to use. However, while it is compatible with a large range of devices like computers and iOs devices, non-rooted Android devices are not able to connect to the network, which invalidates this procedure as it is not suited for the general public.
 
 
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsubsection{Wifi Access Point:}
 
 The last option for connecting the phone to the robot is to create a wifi Access Point (AP). This method involves a more complex setup than the previous, but while maintaining the same benefits, both allows Android devices to connect and supports speeds of up to 54 Mbps in 802.11g, while the former was limited to 11 Mbps in 802.11b.\\
 
-In order to create the AP the  \textit{Hostapd} and  \textit{Isc-dhcp-server} packages have to be installed: \textit{sudo apt-get install hostapd isc-dhcp-server}.\\
+The following section will explain how to establish this kind of connection. In order to do so both the Access Point host and the Dynamic Host Configuration Protocol (DHCP) server need to be configured, and will be so following the diagram in Figure \ref{apdiagram}.\\
 
-Once the needed packages have been installed the Dynamic Host Configuration Protocol (DHCP) server must be configured in order to assign IP addresses to clients. The contents of \textit{/etc/dhcp/dhcpd.conf} must be replaced with those in Listing \ref{dhcp-server-ap}. \\
+  \begin{figure}[H]
+      \centering
+      \includegraphics[scale=.6]{images/Diagrams/wifiAP.png}
+      \caption{ Wifi Access Point connection configuration }
+      \label{apdiagram}
+  \end{figure}
+  \bigskip
+
+
+Firstly the  \textit{Hostapd} and  \textit{Isc-dhcp-server} packages have to be installed: \textit{sudo apt-get install hostapd isc-dhcp-server}.\\
+
+Once the needed packages have been installed the DHCP server must be configured in order to assign IP addresses to clients. The contents of \textit{/etc/dhcp/dhcpd.conf} must be replaced with those in Listing \ref{dhcp-server-ap}. \\
 
 	\begin{minipage}{\linewidth}%to ensure it stays in the same page
 	\begin{lstlisting}[label=dhcp-server-ap,caption=DHCP Server Configuration {[} /etc/dhcp/dhcpd.conf {]} ,language=python ]
@@ -193,10 +240,69 @@ The only thing remaining is to start the AP service at boot, which is done with 
 This concludes the wireless communications setup, finally using the wifi Access Point method because of the advantages mentioned previously.
 
 
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{MJPG Streamer}
 
+One feature the robot implements is the ability to send a video feed to the user's telephone. This is useful in the case of a patient with limited mobility, as they can navigate it through the rooms of a house without having to follow it.\\
+
+To achieve this the package \textit{MJPG-streamer} is installed, which captures JPG shots from a camera connected to the computer and streams them as M-JPEG through HTTP to external viewers. It is downloaded from the official \href{http://sourceforge.net/projects/mjpg-streamer/?source=navbar}{repository} and built from source using the \textit{GNU Make} utility.\\
+
+Once built, the package includes three main files: mjpg\textunderscore streamer, input\textunderscore uvc.so and output\textunderscore http.so, with each performing one part of the total procedure. More specifically,
+  
+  \begin{itemize}
+        
+    \item \textbf{mjpg\textunderscore streamer:} The core of the package, it copies JPG files from an input plugin to one or more output plugins.
+
+    \item \textbf{input\textunderscore uvc.so:} The input plugin. It is charged of capturing JPG files from a connected webcam.
+
+    \item \textbf{output\textunderscore http.so:} The output plugin. Its job is to stream the JPG files served by mjpg\textunderscore streamer according to the M-JPG standard over a HTTP webserver.
+
+  \end{itemize}
+
+The next step is to configure it by giving it the camera's location, the desired resolution and the number of frames per second. All of these parameters should be passed as arguments when calling the program from the command-line, but in order to simplify its initialization, the script in Listing \ref{startStreaming} is created.
+
+  \begin{minipage}{\linewidth}%to ensure it stays in the same page
+  \begin{lstlisting}[label=startStreaming,caption=Streaming Initialization Script {[} startStreaming.sh {]}  ]
+  #!/bin/sh
+  sleep 2
+  route="/home/pi/mjpg-streamer/mjpg-streamer-code-182/mjpg-streamer"
+  cd  $route
+  sudo $route/mjpg_streamer -i "$route/input_uvc.so -d /dev/video0 -n 
+  -f 7 -r QVGA" -o "$route/output_http.so -n -w $route/www"
+
+  exit 0
+
+  \end{lstlisting}
+  \end{minipage}
+
+\bigskip
+The robot now has the ability of streaming images from its webcam, which will be visible on the user's telephone and will give them the ability to control it remotely, even from out of their line of sight .
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{IP/UART Bridge} 
 
@@ -204,7 +310,7 @@ It uses the Adafruit-CharLCD library, which can be downloaded from their \href{h
 
 Figure \ref{rasbpiFlowchart} presents a flowchart of the socket to serial connection software.\\
 
-The program creates a TCP socket server which continuously searches for clients until one of them connects. Once a connection is secured, the LCD changes from "Awaiting clien" to "Client connected" and the program waits instead to receive data from the client. The data received is examined to check if it is a "quit" string, in which case the connection is closed and the program awaits another client. On the other hand, if the data is a valid string from the client, it is passed on through serial communication to the Arduino for it to use.
+The program creates a TCP socket server which continuously searches for clients until one of them connects. Once a connection is secured, the LCD changes from "Awaiting client" to "Client connected" and the program waits instead to receive data from the client. The data received is examined to check if it is a "quit" string, in which case the connection is closed and the program awaits another client. On the other hand, if the data is a valid string from the client, it is passed on through serial communication to the Arduino for it to use.
 
 %\includesvg{images/Diagrams/rasbpi1}
 
@@ -258,7 +364,7 @@ The program creates a TCP socket server which continuously searches for clients 
 
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \subsection{Initializing Script} 
@@ -269,7 +375,7 @@ To do so, the tasks previously defined are called automatically from a script wh
 
 
 	\begin{minipage}{\linewidth}%to ensure it stays in the same page
-	\begin{lstlisting}[label=ap-default,caption=Initialization Script {[} /etc/rc.local {]} ,language=python ]
+	\begin{lstlisting}[label=rc.local,caption=Initialization Script {[} /etc/rc.local {]} ,language=python ]
   #!/bin/bash
 
   #Start ip Server
