@@ -1,3 +1,5 @@
+\subsection{Android Overview}
+
 Android has been used instead of iphone or windows because ... marketshare, graphs, prices etc
 
 
@@ -17,3 +19,79 @@ this app
       \label{androidActivity}
   \end{figure}
   \bigskip
+
+
+\subsection{Bot Control}
+
+The robot is controlled from the Android application Bot Control, seen in Figure \ref{BotControlApp}. As it can be seen it is divided in two halves, with the upper half displaying the video received from the bot and the lower one encompassing the controls. The complete list of widgets include:
+
+	\begin{itemize}
+	\item A WebView connected to the url given by MJPG-Streamer which displays the video feed streamed from the webcam
+
+	\item Four SeekBars, used to select the desired angle for each of the servomotors that position the arms
+
+	\item A "Left/Right" Switch for selecting between the left and right arms
+
+	\item A "Close" Button to close the claw of the current arm
+
+	\item A "Reset" Button to reset the position of the arms, turning each servo at 90 degrees
+
+	\item A "Symmetry" CheckBox to activate said option, under which both arms are controlled simultaneously and symetrically
+
+	\item Five direction Buttons to navigate the robot, which result in it moving forwards or backwards, turning left or right and stopping in place
+
+	\end{itemize}
+ 
+
+	\begin{figure}[H]
+      \centering
+      \includegraphics[scale=.17]{images/Android/BotControl.png}
+      \caption{Bot Control application }
+      \label{BotControlApp}
+  \end{figure}
+  \bigskip
+
+
+The application follows the same general structure presented in the previous section. Here each function used will be analyzed if their default behaviour has been overridden. The following is a list of the modified functions specified in the program's code.
+ 
+	\begin{itemize}
+
+	\item \textbf{onCreate()} \hfill \\
+	This is ...\\
+
+	\item \textbf{onResume()} \hfill \\
+	This is ...
+
+
+	\end{itemize}
+
+\bigskip
+
+The "Activity running" state is in this case composed by two separate functions, as illustrated by Figure \ref{activityDetail}.
+
+	\begin{figure}[H]
+      \centering
+      \includegraphics[scale=.8]{images/Diagrams/androidActivity.png}
+      \caption{Detail of the "Activity running" state}
+      \label{activityDetail}
+	\end{figure}
+
+\bigskip
+
+	\begin{itemize}
+
+	\item \textbf{processData()} \hfill \\
+	This function identifies and stores changes in movement parameters, such as those resulting in arm or body movement, and calls \textit{readAndSend()} to send them to the robot.\\
+
+	\item \textbf{readAndSend()} \hfill \\
+	This function is in charge of reading the values of non-movement parameters, such as symmetry or side selection, and sends these and the previous to the robot through the socket.\\
+
+	\item \textbf{onStop()} \hfill \\
+	This is the last function to be called before the activity's destruction. It closes the socket after sending the "quit" keyword that tells the Raspberry Pi to start looking for clients again. \\
+
+	\item \textbf{clientThread} \hfill \\
+	The runnable class \textit{clientThread} is in charge of creating a socket client that will be used to send commands over wifi.\\
+
+	\end{itemize}
+
+\bigskip

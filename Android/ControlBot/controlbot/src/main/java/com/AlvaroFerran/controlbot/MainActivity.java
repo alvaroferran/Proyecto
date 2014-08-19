@@ -84,7 +84,7 @@ public class MainActivity extends Activity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //Keep screen on while using the app so webview doesn't stop
 
-
+/*Put webView1 in onResume to see if it works better*/
         webView1 = (WebView) findViewById(R.id.webView1);
         webView1.getSettings().setJavaScriptEnabled(true);
         webView1.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
@@ -114,7 +114,9 @@ public class MainActivity extends Activity {
 
 
     /********ON RESUME**************************************************************************************/
-/*try: public void onRestart(){*/
+
+
+/*try: public void onStart(){*/ //or not-> after quitting it passes through resume again
     @Override
     public void onResume() {
         super.onResume();
