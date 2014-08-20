@@ -21,6 +21,13 @@ diagram of complete assembly with servo+motor letters assigned
 
 
 
+
+
+
+
+
+
+
 \subsection{Connections}
 
 This section will present how the different elements composing the robot are connected, first from the electrical point of view, then from a means of communication angle and finally from the different programs' interactions perspective.
@@ -47,10 +54,32 @@ Finally, the Raspberry communicates with the Arduino through the former's UART p
 	\end{figure}
 	\bigskip
 	
-	
+\bigskip
+Figure \ref{gpioDetail} shows the conections between the LCD and Rasbperry Pi and the Raspberry, Arduino and the logic voltage shifter pins.
+
+	\begin{figure}[H]
+			\centering
+			\includegraphics[width=15cm, angle=0]{images/Diagrams/detail.png}
+			\caption{Detail of LCD and Serial connections }
+			\label{gpioDetail}
+	\end{figure}
+	\bigskip
+
+
+	\bigskip
+Figure \ref{hbridgeDetail} shows the wiring between the motor driver, the motors and the Arduino.
+
+	\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5, angle=0]{images/Diagrams/hbridge.png}
+			\caption{Detail of motor driver wiring }
+			\label{hbridgeDetail}
+	\end{figure}
+	\bigskip
+
 
 table with servo +motor letters assigned to arduino pins
-	
+
 
 %%%%%%%%%% LOGIC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

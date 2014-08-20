@@ -1,8 +1,21 @@
 \subsection{Overview}
-The Arduino is designed to control a relatively high number of devices. While it is 
+Arduino refers both to the microcontroller board used to interface with sensors and actuators and to the software used to program it.\\
+
+As a microcontroller, an Arduino is a relatively cheap development board useful for controlling many input and output pins, either digital or analog, in a single board solution that plugs directly into the computer over USB.\\
+
+As a software environment, it provides a simple IDE with many code examples, a bootloader to program microcontroller chips directly with almost no external components and a growing user community that creates libraries for different sensors and communication protocols among others.\\
+
+All Arduino programs follow the structure presented in Figure \ref{arduinoSkeleton}, namely one Setup function and one Loop function. The first is executed only once at the beginning of the program, while the latter is equivalent to a "while(1)" block, meaning that any code entered into it will be repeated until the microcontroller shuts down or is reset.\\
+
+\begin{figure}[H]
+      \centering
+      \includegraphics[scale=.8]{images/Diagrams/arduinoSkeleton.png}
+      \caption{Arduino code skeleton }
+      \label{arduinoSkeleton}
+\end{figure}
+\bigskip
 
 
-a standard code has the following funct() bla bla...
 
 %%%%%%%%%% FLOWCHART%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -35,5 +48,3 @@ In this section the code written for the robot's controller will be explained. A
 	\bigskip
 
 
-
-	explicacion de como se parsea el string de android y formatea para obtener parametros

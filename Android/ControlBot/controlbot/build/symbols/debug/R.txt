@@ -239,11 +239,12 @@ int id action_context_bar 0x7f07001d
 int id action_menu_divider 0x7f070015
 int id action_menu_presenter 0x7f070016
 int id action_mode_close_button 0x7f070024
-int id action_settings 0x7f07004e
+int id action_settings 0x7f07004f
 int id activity_chooser_view_content 0x7f070025
 int id always 0x7f07000f
 int id beginning 0x7f07000a
 int id button 0x7f070046
+int id button2 0x7f07004d
 int id buttonD 0x7f07004a
 int id buttonL 0x7f070049
 int id buttonR 0x7f070047
@@ -258,7 +259,7 @@ int id dialog 0x7f070012
 int id disableHome 0x7f070008
 int id drawer_layout 0x7f07003c
 int id dropdown 0x7f070013
-int id editText 0x7f07004d
+int id editText 0x7f07004e
 int id edit_query 0x7f070030
 int id end 0x7f07000c
 int id expand_activities_button 0x7f070026
