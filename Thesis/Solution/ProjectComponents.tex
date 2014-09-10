@@ -1,3 +1,6 @@
+This section will explain the different tools and components used for the creation of the proyect.
+
+
 %%%%%%%%%% 3D PRINTER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{3D Printer}
 
@@ -9,17 +12,19 @@
 	Today a vast range of 3D printers co-exist, varying in size, price and materials used. \\
 
 
-	$\rightarrow$ [RepRap, Zcorp, chocolate, liquid sint, micro, house building]\\
+	% $\rightarrow$ [RepRap, Zcorp, chocolate, liquid sint, micro, house building]\\
 
-	$\rightarrow$ [table with different methods?]\\
+	% $\rightarrow$ [table with different methods?]\\
 
-	In this theses a RepRap Prusa Air 2 model is used. It is of a "fused filament fabrication additive manufacturing" type. This type of printers extrude mainly ABS or PLA plastics, and deposit new liquified material over ther previous layer, now solid, effectively building parts from the bottom up layer by layer.
+	In this theses a RepRap Prusa Air 2 (Figure \ref{tia}) model is used. It is of a "fused filament fabrication additive manufacturing" type. This type of printers extrude mainly ABS or PLA plastics, and deposit new liquified material over ther previous layer, now solid, effectively building parts from the bottom up layer by layer.\\
 
-	$\rightarrow$ \textbf {Terminal Imprusión Autorreplicante (T.I.A) }
-	(add info + pic)
-	Built within the scope of the Clone Wars project
-
-
+		\begin{figure}[H]
+				\centering
+				\includegraphics[scale=0.4]{images/ProjectComponents/tia.jpg}
+				\caption{Prusa Air 2 3D printer}
+				\label{tia}
+			\end{figure}
+			\bigskip
 
 
 
@@ -36,16 +41,16 @@
 
 %%%%%%%%%% 3D SOFTWARE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Software}
-	This type of 3D printers work by turning 3D models into plastic parts. These models are first modelled in a CAD program and then processed with a \textit{slicing} software to divide the model into layers of G-code, which is the standard language interpreted by CNCs. This is then introduced in a third piece of software which feeds it to the printer.
+	This type of 3D printers work by turning 3D models into plastic parts. These models are first modelled in a CAD program and then processed with a \textit{slicing} software to divide the model into layers of G-code, which is the standard language interpreted by CNCs. This is then introduced into the printer to build the part.
 
 		\subsubsection{3D Modelling }
-		In this project Sketchup has been used to create the printed parts. Owned by the company Trimble Navigation it is a WYSIWYG (What You See Is What You Get) modelling editor with a large online warehouse of parts available for download. \\
+		In this project Sketchup has been used to create the printed parts. Owned by the company Trimble Navigation it is a WYSIWYG (What You See Is What You Get) modelling editor with a large online warehouse of parts available for download. Figure \ref{sketchup} shows the program's user interface.\\
 
 			\begin{figure}[H]
 				\centering
 				\includegraphics[scale=0.4]{images/ProjectComponents/sketchup-arm.png}
 				\caption{SketchUp software}
-				\label{}
+				\label{sketchup}
 			\end{figure}
 			\bigskip
 
@@ -70,10 +75,7 @@
 			
 			\end{itemize}
 
-
-
-		\subsubsection{CNC Controller}
-
+		To print the needed parts Cura was chosen because of its simplicity and usefulness in rearranging the objects without having to modify the original CAD files.
 
 
 
@@ -89,25 +91,17 @@
 %%%%%%%%%%%% BATTERY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Li-Ion Battery}
 
-	The whole system is powered by a lithium ion 12V 6800mAh battery. 
+	The whole system is powered by a lithium ion 12V 6800mAh battery as seen in Figure \ref{battery}. This was chosen because of the high voltage and durability it delivers over regular AA batteries.
 
 		\begin{figure}[H]
 				\centering
 				\includegraphics[scale=0.25]{images/ProjectComponents/battery.jpg}
 				\caption{Li-ion 12V 6800mAh battery with charger}
-				\label{}
+				\label{battery}
 		\end{figure}
 		\bigskip
 
-	Many different types of batteries are available in the market, each with their own benefits and disadvantages. The most common types are alkaline, lithium ion (Li-ion), lithium polymer (LiPo), lead acid, nickel–metal hydride (NiMH) and  nickel–cadmium (NiCd).
-
-		\begin{figure}[H]
-				\centering
-				\includegraphics[scale=0.75]{images/ProjectComponents/battery-differences.png}
-				\caption{Table comparing different battery technologies}
-				\label{}
-		\end{figure}
-		\bigskip
+	
 
 
 
@@ -120,8 +114,10 @@
 
 
 %%%%%%%%%%% CONVERTER %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
 \subsection{Voltage level converters}	
+
+Different electronics demand different power levels, ranging from 3.3V up to 12V in this case. In order to provide suitable voltages to each part, different voltage level converters are used.
+
 	\subsubsection{DC-DC Step-Down Converter}
 
 		Voltage level converters are used to adapt a source's voltage to that required by the load. In this thesis a DC-DC converter is used to decrease the 12V given by the battery to the 5V required by the logic components as well as the servomotors. \\
@@ -131,7 +127,7 @@
 
 
 		A much more efficient solution is to use a switching regulator such as a Buck converter, which has an efficiency level of around 95\%  \cite{buck}. 
-		Buck converters work by switching rapidly between "On" and "Off" states, which sets the output voltage in function of the duty cycle $d=\mathLarge{\frac{time_{on}}{time_{on}+time_{off}}}$. The converter used includes a potentiometer to set the output level by selecting the duty cycle. 
+		Buck converters work by switching rapidly between "On" and "Off" states, which sets the output voltage in function of the duty cycle $d=\mathLarge{\frac{time_{on}}{time_{on}+time_{off}}}$. The converter (Figure \ref{step-down}) used includes a potentiometer to set the output level by selecting the duty cycle. 
  
 		
 
@@ -139,7 +135,7 @@
 					\centering
 					\includegraphics[scale=0.2]{images/ProjectComponents/buck.jpg}
 					\caption{LM2596S step-down converter }
-					\label{}
+					\label{step-down}
 			\end{figure}
 			\bigskip
 
@@ -150,7 +146,7 @@
 				\item Max. output current: 3A
 			\end{itemize}
 
-	\newpage
+	%\newpage
 	\subsubsection{Bidirectional logic level converter}
 
 		In order to enable serial communication between the Arduino and the Raspberry Pi another voltage level converter must be introduced, since the former operates at a 5V level while the latter does so at a 3.3V level.\\
@@ -172,13 +168,13 @@
 			\end{figure}
 			\bigskip
 
-			This setup works for one line, two identical circuits are needed in order to provide for serial communication. For this project a commercial board is used to reduce the total size of the converter by using SMD components.
+			This setup works for one line, two identical circuits are needed in order to provide for serial communication. For this project a commercial board (Figure \ref{level-converter}) is used to reduce the total size of the converter by using SMD components.
 
 			\begin{figure}[H]
 					\centering
 					\includegraphics[scale=0.4]{images/ProjectComponents/logic-voltage.jpg}
 					\caption{JY-MCU 5V-3V converter }
-					\label{}
+					\label{level-converter}
 			\end{figure}
 			\bigskip
 
@@ -192,42 +188,77 @@
 
 
 
-
+\bigskip
 
 
 %%%%%%%%%%% DC MOTORS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Motors}
 
+Three different types of actuators are present in the robot, which are either continuous motors or servomotors.
+
 	\subsubsection{DC motor}
 	
+	DC motors are simple actuators that start spinning whenever there is a voltage applied between their wires.  Their speed is directly dependent of the voltage level applied, and the turning sense on the polarity of the conection.\\
+
+	This robot uses two GA25Y370-362 dc motors (Figure \ref{dc-motor}), which turn at a 10rpm with a torque of 5Nm when connected to a 12V source. 
+
 		\begin{figure}[H]
 			\centering
 			\includegraphics[scale=0.4]{images/ProjectComponents/motor.jpg}
-			\caption{GA25Y370 motor }
-			\label{}
-	\end{figure}
-	\bigskip
+			\caption{GA25Y370-362 motor }
+			\label{dc-motor}
+		\end{figure}
+		\bigskip
+
+	Since the motor only has two wires, a controller is needed to interface it to the arduino. This type of controller is called an H-bridge because of its circuit topology (Figure \ref{h-bridge}). It consists of a series of transistors that can be opened or closed to reverse the polarity of the motor, as well as to apply a PWM modulation to control its speed.\\
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.6]{images/ProjectComponents/h-bridge.jpg}
+			\caption{H-bridge circuit }
+			\label{h-bridge}
+		\end{figure}
+		\bigskip
+
+	In this case a L293D chip with two internal H-bridge circuits is used to control both motors.
 
 	\subsubsection{Servomotors}
+
+	On the other hand, servomotors are much more complex than continuous motors. These consist of a regular dc motor, a set of gears, an internal potentiometer and a control circuit. They also do not revolve continuously but rather oscillate in a range of approximately 180º.	\\
+
+	In order to control the servo the user gives the desired position through the input cable and the circuit board matches it to a resistance value. The motor then starts turning which does the same to the potentiometer, and stops when the latter reads the desired resistance value.\\
+
+	The robot uses three GOTECK GS-551MG (Figure \ref{goteck}) servos per arm, which are used for the more demanding movements, while it employs two aditional TowerPro SG90 (Figure \ref{towerpro}) servos for the less challenging actions of wrist rotation and gripper manipulation.
 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[scale=0.5]{images/ProjectComponents/servo1.jpg}
 			\caption{GOTECK GS-551MG servo }
-			\label{}
+			\label{goteck}
 		\end{figure}
 		\bigskip
 
+	The GOTECK's technical specifications are:
+			\begin{itemize}
+				\item Operating voltage
+				\item Maximum torque    
+				\item 
+			\end{itemize}	
 
 		\begin{figure}[H]
 			\centering
 			\includegraphics[scale=0.25]{images/ProjectComponents/servo2.jpg}
 			\caption{TowerPro SG90 servo }
-			\label{}
+			\label{towerpro}
 		\end{figure}
 		\bigskip
 
-
+	The TowerPro's technical specifications are:
+			\begin{itemize}
+				\item Operating voltage
+				\item Maximum torque    
+				\item 
+			\end{itemize}	
 
 
 

@@ -57,6 +57,8 @@
 
 \usepackage{enumerate}% list with roman numerals
 
+\usepackage{float}%to put figures in minipagex
+
 \begin{document}
 
 % PORTADA 
@@ -66,6 +68,10 @@
 
 \selectlanguage{english}
 
+\newpage
+\input{Pre/Summary-en}
+\newpage
+\input{Pre/Summary-es}
 \newpage
 \pagenumbering{roman} 
 \tableofcontents
@@ -77,19 +83,19 @@
 
 \pagenumbering{arabic}
 % Intro
-\part{Introduction} 
+%\part{Introduction} 
 \input{Introduction/Introduction}
 \newpage
 
 
 % State of the art
-\part{State of the art} 
+%\part{State of the art} 
 \input{StateOfArt/StateOfArt}
 \newpage
 
 
 
-\part{Proposed Solution} 
+%\part{Proposed Solution} 
 %Components
 \section{Project components}
 \input{Solution/ProjectComponents}
@@ -97,6 +103,10 @@
 %Assembly-HW
 \section{Hardware assembly}
 \input{Solution/Assembly}
+\newpage
+%Arduino
+\section{Arduino}
+\input{Solution/Arduino}
 \newpage
 %Raspberry
 \section{Raspberry Pi}
@@ -106,13 +116,10 @@
 \section{Android} 
 \input{Solution/Android}
 \newpage
-%Arduino
-\section{Arduino}
-\input{Solution/Arduino}
-\newpage
+
 
 %FUTURE
-\part{Conclusion} 
+%\part{Conclusion} 
 \input{Conclusion/Conclusion}
 \input{Conclusion/FutureWork}
 \newpage
