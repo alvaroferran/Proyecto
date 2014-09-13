@@ -1,19 +1,45 @@
 \subsection{Android Overview}
 
-Android has been used instead of iphone or windows because ... marketshare, graphs, prices etc
+Android applications are typically programmed from Integrated Development Environments (IDE) such as  Eclipse or Android Studio. The latter has been used in this because it is the official Android IDE supported by Google. \\
+
+The typical app skeleton is shown in Figure \ref{androidActivity}. It consists of the following functions:
+
+	\begin{itemize}
+
+	\item \textbf{onCreate()} \hfill \\
+	The first function Android calls when the application is launched. Here is where all the static elements are defined, such as setting the views.
+	
+	\item \textbf{onStart()} \hfill \\
+	This function is called when the app is first visible to the user, after the previous function has ended.
 
 
-app skeleton, typical app example, android studio etc
+	\item \textbf{onResume()} \hfill \\
+	This method is called when the app is ready to interact with the user, ie. it is on top of the application stack and receives the user input.
+
+	\item \textbf{onPause()} \hfill \\
+	This is called when a previously started activity is going to be resumed. It is typically used to save data and stop resource consuming parts such as animations.
+
+	\item \textbf{onStop()} \hfill \\
+	Called when the activity is no longer visible to the user, either because another activity or the current one is being destroyed.
+
+	\item \textbf{onRestart()} \hfill \\
+	It is called when the activity is has been stopped, before it is restarted.
+
+	\item \textbf{onDestroy()} \hfill \\
+	If the activity is not restarted it is destroyed. It is the final function used in the activity and is called either explicitly with the \textit{finish()} method or because the system closes it because it is low on resources.
 
 
-
-\begin{figure}[H]
+	\end{itemize}
+	\bigskip
+	
+	
+	\begin{figure}[H]
       \centering
       \includegraphics[scale=.8]{images/Diagrams/android_activity_lifecycle.png}
       \caption{Android app activity lifecycle }
       \label{androidActivity}
-  \end{figure}
-  \bigskip
+  	\end{figure}
+  	\bigskip
 
 
 
@@ -61,10 +87,11 @@ The application follows the same general structure presented in the previous sec
 	\begin{itemize}
 
 	\item \textbf{onCreate()} \hfill \\
-	This is ...\\
+	This is the first function called upon start. The clientThread class is started here and the WebView connects to the robot's IP to reproduce the video stream.
+	\\
 
-	\item \textbf{onResume()} \hfill \\
-	This is ...
+	% \item \textbf{onResume()} \hfill \\
+	% This is ...
 
 
 	\end{itemize}
