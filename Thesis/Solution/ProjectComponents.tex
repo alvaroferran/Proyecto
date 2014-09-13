@@ -240,9 +240,9 @@ Three different types of actuators are present in the robot, which are either co
 
 	The GOTECK's technical specifications are:
 			\begin{itemize}
-				\item Operating voltage
-				\item Maximum torque    
-				\item 
+				\item Operating voltage: 4.8 V
+				\item Maximum torque: 1.3 Nm    
+				\item Speeed: 0.20sec/60deg
 			\end{itemize}	
 
 		\begin{figure}[H]
@@ -255,9 +255,9 @@ Three different types of actuators are present in the robot, which are either co
 
 	The TowerPro's technical specifications are:
 			\begin{itemize}
-				\item Operating voltage
-				\item Maximum torque    
-				\item 
+				\item Operating voltage: 4.8 V
+				\item Maximum torque: 0.18 Nm
+				\item Speed: 0.10sec/60deg
 			\end{itemize}	
 
 
@@ -385,7 +385,7 @@ Three different types of actuators are present in the robot, which are either co
 		\end{figure}
 
 
-	In this proyect a Raspberry Pi model B running Raspbian manages the software side of the robot. It has an EDUP 802.11n WiFi USB dongle , a PlayStation 2 EyeToy USB camera and a 16x2 character LCD screen connected in order to create a WIFI Access Point, stream video to the user and signal its status respectively.
+	In this proyect a Raspberry Pi model B running Raspbian manages the software side of the robot. It has an Ralink Technologies RT5730 WiFi USB dongle , a PlayStation 2 EyeToy USB camera and a 16x2 character LCD screen connected in order to create a WIFI Access Point, stream video to the user and signal its status respectively.
 
 
 
@@ -396,12 +396,27 @@ Three different types of actuators are present in the robot, which are either co
 \newpage
 \subsection{Android Phone}
 
-Android is... blablabla  (history)
+Android is one of the most popular operating systems for smartphones. Created in 2003 by the eponymous company and adquired by Google Inc. two years later, its open-source nature has incentivised manufacturers to include it in their products, expanding its reach until it has dominated the market share, as seen in Figure \ref{marketshare}.
+
+	\begin{figure}[H]
+			\centering
+			\includegraphics[width=15cm]{images/ProjectComponents/smartphone-market-share.png}
+			\caption{Smartphone market share}
+			\label{marketshare}
+	\end{figure}
+	\bigskip
 
 
-Figure \ref{HaipaiNoble} shows the model used in this project, a Haipai Noble H868. \\
-Some of its more relevant characteristics are:
+Android has been chosen for the following reasons:
+	\begin{itemize}
+	\item \textbf{Market share:} Being the operating system used by the highest number of people means that the robot will be useful to the largest amount of users possible.
+	\item \textbf{Price ranges:} Because most mobile phone manufacturers nowadays include Android each user will be able to enjoy the product whithout having to pay for a high-end phone.
+	\item \textbf{App development:} Finally, Android apps such as Bot Control can be programmed from any computer regardless of the OS, and can be uploaded to the user's phone directly. This means users are able to customize the app with no extra costs, such as having to use a certain OS and paying a developper's fee.
+	\end{itemize}
 
+
+\newpage
+In this project a Haipai Noble H686 (Figure \ref{HaipaiNoble}) is used. Some of its more relevant specifications are:
 	\begin{itemize}
 	\item \textbf{CPU:} Quad-Core Mediatek MTK6589 1.2GHz
 	\item \textbf{RAM:} 1 GB
