@@ -16,7 +16,7 @@ State of art:
 	-Honda Asimo http://en.wikipedia.org/wiki/ASIMO
 	-Asibot UC3M  http://roboticslab.uc3m.es/roboticslab/robot.php?id_robot=3
 	-
-	-
+	-sam & centaur (nasa) http://cyberneticzoo.com/teleoperators/1969-self-propelled-anthropomorphic-manipulator-sam-edwin-johnson-american/
 	
 
 
@@ -44,4 +44,24 @@ Trabajo futuro:
 	añadir posibilidad de "programacion" de rutinas por parte del usuario (ex traer vaso de agua todas las mañanas)
 	añadir control por voz 
 	añadir versión para iPhone
+
+
+
+
+
+
+robonaut+ sam:
+http://en.wikipedia.org/wiki/Robonaut
+http://robonaut.jsc.nasa.gov/R1/sub/telepresence.asp
+http://cyberneticzoo.com/teleoperators/1969-self-propelled-anthropomorphic-manipulator-sam-edwin-johnson-american/
+
+asimo
+http://en.wikipedia.org/wiki/ASIMO#Development_history
+http://asimo.honda.com/Inside-ASIMO/
+http://asimo.honda.com/downloads/pdf/asimo-technical-faq.pdf
+
+riba
+http://spectrum.ieee.org/automaton/robotics/medical-robots/riba-ii-healthcare-robot-gets-bigger-muscles-cuter-ears
+http://rtc.nagoya.riken.jp/RIBA/index-e.html
+http://en.wikipedia.org/wiki/Body_weight#Global_statistics (weights)
 	
