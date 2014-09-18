@@ -64,4 +64,6 @@ riba
 http://spectrum.ieee.org/automaton/robotics/medical-robots/riba-ii-healthcare-robot-gets-bigger-muscles-cuter-ears
 http://rtc.nagoya.riken.jp/RIBA/index-e.html
 http://en.wikipedia.org/wiki/Body_weight#Global_statistics (weights)
-	
+
+6 motors per leg in humanoids:
+http://spectrum.ieee.org/automaton/robotics/humanoids/designing-a-more-humanlike-lower-leg-for-biped-robots	
