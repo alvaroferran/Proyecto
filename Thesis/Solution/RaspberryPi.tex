@@ -10,7 +10,7 @@ The Raspberry Pi carries out three main duties to ensure everything works correc
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Wireless Communications}% WiFi Acces Point
+\subsection{Wireless communications}% WiFi Acces Point
 
 The chosen means of communication between human and humanoid was wifi. This is so because it is a widely established technology, with great compatibility and in a great number of cases is already installed in the homes of users. It also has a greater speed and range than other technologies, like bluetooth, which are an asset in the case of streaming images.\\
 
@@ -66,7 +66,7 @@ In order to create implement this two files need to be set up. Firstly, the comp
 \bigskip
 With this configuration the Raspberry will assign itself the IP address 192.168.1.1, but the client computer will be left without an IP assigned and so will be unable to connect to the former. 
 
-To provide an IP to the client the package \textit{DHCP Server} must be installed by typing \textit{sudo apt-get install dhcp3-server} into a terminal. \\
+To provide an IP to the client the package \textit{Isc-dhcp-server} must be installed by typing \textit{sudo apt-get install isc-dhcp-server}
 
 Listing \ref{dhcp-server-adhoc} must then be included in file \textit{/etc/dhcp/dhcpd.conf} \\
 
@@ -367,7 +367,7 @@ The program creates a TCP socket server which continuously searches for clients 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\subsection{Initializing Script} 
+\subsection{Initializing script} 
 
 One of the defining features of this project is that it must be usable by non-technological people, and so it must initialize every service it needs on its own. \\
 

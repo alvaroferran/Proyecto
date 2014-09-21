@@ -1,4 +1,5 @@
 \documentclass[11pt, a4paper,openany]{article}%openany-> remove blank page after part in book
+
 \usepackage[utf8]{inputenc}
 %\usepackage{graphicx,verbatim,eurosym,epstopdf,mathtools}
 \usepackage{gensymb}
@@ -57,7 +58,13 @@
 
 \usepackage{enumerate}% list with roman numerals
 
-\usepackage{float}%to put figures in minipagex
+\usepackage{float}%to put figures in minipage
+
+\usepackage[titletoc, title]{appendix}%appendix to toc
+
+\usepackage[official]{eurosym}%use the euro symbol
+
+
 
 \begin{document}
 
@@ -101,7 +108,7 @@
 \input{Solution/ProjectComponents}
 \newpage
 %Components
-\section{Design Alternatives}
+\section{Design alternatives}
 \input{Solution/Design}
 \newpage
 %Assembly-HW
@@ -126,12 +133,17 @@
 %FUTURE
 %\part{Conclusion} 
 \input{Conclusion/Conclusion}
-\newpage
 
+\newpage
 %BIBLIIOGRAPHY
 \input{Conclusion/Bibliography}
-Priced Bill of Materials\\[0.5cm]
 
-\includegraphics[width=16cm]{appendices/Presupuesto.png}
+
+\newpage
+\section*{\huge Appendices}
+\begin{appendices}
+\input{appendices/Appendices}
+\end{appendices}
+
 
 \end{document}
