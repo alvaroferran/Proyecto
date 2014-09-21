@@ -17,7 +17,7 @@ To make the droid stable even when unpowered and to simplify the algorithims the
 	\begin{figure}[H]
 			\centering
 			\includegraphics[scale=0.4]{images/Diagrams/exoskeleton}
-			\caption{}
+			\caption{First sketch of the PD-SD}
 			\label{exoskeleton}
 	\end{figure}
 	\bigskip
@@ -25,17 +25,29 @@ To make the droid stable even when unpowered and to simplify the algorithims the
 However, it provided very little stability and a design with a more human-like skeleton was chosen.\\
 
 
-\paragraph{Arm designs}
--> gripper vs hand
- -> Pictures of different designs -> Better because of firmer grip, less torque on plastic... 
+\paragraph{Arm designs} The most natural configuration for the robot to grasp objects would be that of a human hand, especially taking into account that most objects are designed to be handled it.\\
+
+However, in the final design a parallel gripper was chosen because it reduced the number of motors needed to one per gripper, while having two parallel-closing fingers capable of gripping objects of differing sizes.\\
+
+The first CAD model of the arm is shown in Figure \ref{firstArm}. It included five motors, four directional and one to control the gripping action. The orientation of the servomotors ensured rotation in all three axes, with two degrees of freedom in the pitch angle. This is done to give the possibility of linear movement useful for lifting and lowering objects in cluttered spaces.  
 \\	
 
+	\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.4]{images/Diagrams/firstArm}
+			\caption{First design of the arm}
+			\label{firstArm}
+	\end{figure}
+	\bigskip
 
+In Figure \ref{finalArm} the final design is shown. While it keeps the original servo orientation, the placement is modified to reduce the distance between the two leftmost motors and so reduce the torque needed to lift objects. \\
+The plastic parts have also been modified to enclose the motors, which now are firmly secured in place, and to support the weight of the arm instead of relying in the screws to do so.
 
-
-
-
-5 dof (4+1) ensure redundancy and posssibility of linear movement for some detailed tasks
-
-denavit hartenberg for arms
+	\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.4]{images/Diagrams/finalArm}
+			\caption{Final design of the arm}
+			\label{finalArm}
+	\end{figure}
+	\bigskip
 
