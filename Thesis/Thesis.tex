@@ -20,7 +20,8 @@
 \usetikzlibrary{arrows}
 
 \usepackage{titlesec}
-\usepackage[linkbordercolor 	={1 1 1}]{hyperref}%hyperlinks [hidelinks]
+
+ 
 \usepackage{float} %change floating behaviour of figures8
 \usepackage{caption}
 \usepackage{subcaption}%figures side-byside
@@ -40,6 +41,17 @@
 \definecolor{section}{HTML}{375AB8}
 \definecolor{subsection}{HTML}{3E65CF}
 \definecolor{subsubsection}{HTML}{4570E6}
+
+
+\usepackage[]{hyperref}%hyperlinks [hidelinks]
+\hypersetup{
+ %colorlinks=false,
+ citecolor=blue,
+ citebordercolor=white,
+ linkbordercolor=white,
+ }
+
+
 
 \usepackage{graphicx}
 
@@ -147,5 +159,8 @@
 \input{appendices/Appendices}
 \end{appendices}
 
+
+\bibliographystyle{plain}
+\bibliography{Conclusion/mybib}
 
 \end{document}

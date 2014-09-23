@@ -1,5 +1,20 @@
 \pagenumbering{gobble}% Remove page numbers (and reset to 1)
 
+\vspace*{2cm}
 \begin{center}
-\color{part} \textsc{\Large \textbf{Abstract}}\\[0.5cm]
+\color{part} \textsc{\huge \textbf{Abstract}}\\[1cm]
 \end{center}
+
+The average age of developped countries is increasing and will tend to do so even more in the future. With a growing number of elderly people needing assistance, the demand for aid is rapidly outgrowing the supply available.\\
+
+In order to reverse this situation, personal robots capable of assisting people both emotionally and physically are being developed. These robots will be able to take care of the elders' needs and being artificial helpers, enough of them can be fabricated to satisfy the demand.\\
+
+In this project an assistive robot prototype is developped. While being relatively small in size, it is programmed taking into account that the software will eventually be ported to a full-sized robot, and so it has the same capabilities.\\
+
+The Personal Domestic Service Droid (PD-SD) has a humanoid upper-body attached to a wheeled base. It has two arms with five degrees of freedom each which are used to grab objects or perform actions such as closing doors, while the differential-drive base enables it to maneuver in small spaces since it is capable of rotating in place.\\
+
+The PD-SD is controlled from an Android phone over a wireless network it creates. The application enables the user to control each of the arm actuators separately or in couples, moving symmetrical motors together. Additional controls include a directional pad to control the base motors, a button for closing or opening the grippers and a button to go back to the initial position. Finally, the top half of the screen is reserved to displaying video received from the on-board camera.\\
+
+On the robot itself, a Raspberry Pi computer acts as the brains. It enables the wifi network and receives the orders through it, as well as streaming video to the phone. All of the previous is scripted, so it completes the tasks automatically when turned on.\\
+
+When a connection between Android and Raspberry has been achieved the LCD will display a message informing the user of this, and will do the same when the connection is lost. The data received is sent through serial port to an Arduino microcontroller which will then parse the message and control the different actuators. 

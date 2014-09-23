@@ -1,5 +1,21 @@
 \pagenumbering{gobble}% Remove page numbers (and reset to 1)
+\vspace*{2cm}
 
 \begin{center}
-\color{part} \textsc{\Large \textbf{Resumen}}\\[0.5cm]
+\color{part} \textsc{\huge \textbf{Resumen}}\\[1cm]
 \end{center}
+
+
+La edad media de los países desarrollados está aumentando, y tenderá a hacerlo aún más en el futuro. Con un número cada vez más importante de personas mayores con necesidad de asistencia, la demanda de ayuda está sobrepasando rápidamente la oferta disponible.\\
+
+Para revertir la situación están siendo desarrollados robots capaces de asistir personas tanto emocional como físicamente. Estos robots satisfacerán las necesidades de los mayores, y siendo ayudantes artificiales se podrán construir los suficientes para satisfacer la demanda.\\
+
+En este proyecto se desarrolla un prototipo de robot asistencial. A pesar de su tamaño relativamente pequeño, está programado teniendo en cuenta que el código se portará más adelante a un robot de tamaño humano, y por tanto es capaz de realizar lo mismo.\\
+
+El Droide de Servicio Doméstico Personal (PD-SD por sus siglas en inglés) tiene un torso con brazos humanoide acoplado a una base con ruedas. Tiene dos brazos, cada uno con cinco grados de libertad que pueden ser utilizados para coger objetos o realizar acciones como cerrar puertas, mientras que la base móvil diferencial le permite maniobrar en espacios pequeños, ya que es capaz de rotar en el sitio.\\
+
+El PD-SD se controla desde un teléfono con Android a través de una red wifi. La aplicación permite el control individual o por parejas simétricas de los motores de los brazos. Además permite controlar la base mediante un pad direccional, tiene un botón para abrir o cerrar las pinzas y otro para llevar al robot a su posición inicial. Finalmente, la parte superior de la pantalla está reservada para reproducir el vídeo recibido de la cámara de abordo.\\
+
+En el propio robot un ordenador Raspberry Pi actúa de cerebro. Crea la red wifi a través de la cual recibe las órdenes y retransmite por ella el vídeo. Todo lo anterior está incluido en un script, con lo que se realiza automáticamente al encender el robot.\\
+
+Cuando se establece una conexión entre el teléfono y el ordenador la pantalla LCD informará de ello mediante un mensaje, y hará lo propio cuando la conexión se cierre. Los datos recibidos se reenviarán mediante el puerto serie a un Arduino, que los parseará y controlará los actuadores pertinentes.
