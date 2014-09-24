@@ -7,7 +7,7 @@ This section will explain the different tools and components used for the creati
 	3D printers are Computer Numerical Control (CNC) machines that are capable of transforming virtual 3D models created with a Computer Aided Design (CAD) software into real-world objects.\\
 
 	Created in 1984 by Chuck Hull of 3D Systems Corp this technology was little-known to the general public and was mainly used in industries for short runs of difficult pieces.\\
-	In 2005 Dr. Adrian Bowyer, from the University of Bath, UK, started the RepRap project. Its goal was "to produce a pure self-replicating device not for its own sake, but rather to put in the hands of individuals anywhere on the planet, for a minimal outlay of capital, a desktop manufacturing system that would enable the individual to manufacture many of the artifacts used in everyday life" \\
+	In 2005 Dr. Adrian Bowyer, from the University of Bath, UK, started the RepRap project\cite{component1}. Its goal was ``to produce a pure self-replicating device not for its own sake, but rather to put in the hands of individuals anywhere on the planet, for a minimal outlay of capital, a desktop manufacturing system that would enable the individual to manufacture many of the artifacts used in everyday life" \cite{component2}\\
 
 	Today a vast range of 3D printers co-exist, varying in size, price and materials used. \\
 
@@ -16,7 +16,7 @@ This section will explain the different tools and components used for the creati
 
 	% $\rightarrow$ [table with different methods?]\\
 
-	In this theses a RepRap Prusa Air 2 (Figure \ref{tia}) model is used. It is of a "fused filament fabrication additive manufacturing" type. This type of printers extrude mainly ABS or PLA plastics, and deposit new liquified material over ther previous layer, now solid, effectively building parts from the bottom up layer by layer.\\
+	In this theses a RepRap Prusa Air 2 (Figure \ref{tia}) model is used. It is of a ``fused filament fabrication additive manufacturing" type. This type of printers extrude mainly ABS or PLA plastics, and deposit new liquified material over ther previous layer, now solid, effectively building parts from the bottom up layer by layer.\\
 
 		\begin{figure}[H]
 				\centering
@@ -48,7 +48,7 @@ This section will explain the different tools and components used for the creati
 
 			\begin{figure}[H]
 				\centering
-				\includegraphics[scale=0.4]{images/ProjectComponents/sketchup-arm.png}
+				\includegraphics[width=15cm]{images/ProjectComponents/sketchup.png}
 				\caption{SketchUp software}
 				\label{sketchup}
 			\end{figure}
@@ -69,7 +69,7 @@ This section will explain the different tools and components used for the creati
 			  \item Slic3r:  \hfill \\
 			  Slic3r was created as an user-friendly software, which only gives the final user a choice in the basic settings, such as printing speeds, filament widths or part infills. As a result it is an easier program to slice parts with a sufficient level of customization. It has nonetheless problems converting models with imperfections or broken shapes.
 			  
-			  \item Cura \hfill \\
+			  \item Cura: \hfill \\
 			  Finally, Cura is also designed with user-friendliness in mind. This slicer is more robust than Slic3r, in that it will accept models with imperfections, and will try to correct them. It also features a box simulating the print area in which the model can be moved around, turned or scaled before printing.
 			  This last feature is specially useful if minor changes need to be made, without returning to the CAD software.
 			
@@ -86,7 +86,7 @@ This section will explain the different tools and components used for the creati
 					\centering
 					\includegraphics[scale=1.4]{images/ProjectComponents/pronterface.png}
 					\caption{Pronterface CNC control software}
-					\label{battery}
+					\label{pronterface}
 			\end{figure}
 			\bigskip
 
@@ -98,7 +98,7 @@ This section will explain the different tools and components used for the creati
 %%%%%%%%%%%% BATTERY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Li-Ion battery}
 
-	The whole system is powered by a lithium ion 12V 6800mAh battery as seen in Figure \ref{battery}. This was chosen because of the high voltage and durability it delivers over regular AA batteries.
+	The whole system is powered by a lithium ion 12V 6800mAh battery as seen in Figure \ref{battery}. This was chosen because of the high voltage and durability it delivers over regular AA batteries\cite{component4}.
 
 		\begin{figure}[H]
 				\centering
@@ -129,12 +129,12 @@ Different electronics demand different power levels, ranging from 3.3V up to 12V
 
 		Voltage level converters are used to adapt a source's voltage to that required by the load. In this thesis a DC-DC converter is used to decrease the 12V given by the battery to the 5V required by the logic components as well as the servomotors. \\
 		
-		The simplest method would be to use a linear regulator such as a 7805, which is a cheap, single-component solution. However, this is greatly inefficient solution, since a great part of the power is dissipated as heat.
+		The simplest method would be to use a linear regulator such as a 7805, which is a cheap, single-component solution\cite{component4}. However, this is greatly inefficient solution, since a great part of the power is dissipated as heat.
 		For instance, if a 7805 were to be used in this project, about $\mathLarge{\frac{Power_{in} - Power_{out} }{Power_{in} }}=\mathLarge{\frac{12 \cdot I -5 \cdot I}{12\cdot I}}=\mathLarge{\frac{12-5}{12}}=58.33\%$ of the power is wasted.\\
 
 
-		A much more efficient solution is to use a switching regulator such as a Buck converter, which has an efficiency level of around 95\%  \cite{buck}. 
-		Buck converters work by switching rapidly between "On" and "Off" states, which sets the output voltage in function of the duty cycle $d=\mathLarge{\frac{time_{on}}{time_{on}+time_{off}}}$. The converter (Figure \ref{step-down}) used includes a potentiometer to set the output level by selecting the duty cycle. 
+		A much more efficient solution is to use a switching regulator such as a Buck converter, which has an efficiency level of around 95\%  \cite{component5}\cite{component6}. 
+		Buck converters work by switching rapidly between ``On" and ``Off" states, which sets the output voltage in function of the duty cycle $d=\mathLarge{\frac{time_{on}}{time_{on}+time_{off}}}$. The converter (Figure \ref{step-down}) used includes a potentiometer to set the output level by selecting the duty cycle. 
  
 		
 
@@ -233,7 +233,7 @@ Three different types of actuators are present in the robot, which are either co
 
 	On the other hand, servomotors are much more complex than continuous motors. These consist of a regular dc motor, a set of gears, an internal potentiometer and a control circuit. They also do not revolve continuously but rather oscillate in a range of approximately 180º.	\\
 
-	In order to control the servo the user gives the desired position through the input cable and the circuit board matches it to a resistance value. The motor then starts turning which does the same to the potentiometer, and stops when the latter reads the desired resistance value.\\
+	In order to control the servo the user gives the desired position through the input cable and the circuit board matches it to a resistance value. The motor then starts turning which does the same to the potentiometer, and stops when the latter reads the desired resistance value.\cite{component7}\\
 
 	The robot uses three GOTECK GS-551MG (Figure \ref{goteck}) servos per arm, which are used for the more demanding movements, while it employs two aditional TowerPro SG90 (Figure \ref{towerpro}) servos for the less challenging actions of wrist rotation and gripper manipulation.
 
@@ -284,11 +284,11 @@ Three different types of actuators are present in the robot, which are either co
 \newpage
 \subsection{Arduino}
 
-	Arduino is a family of low-cost electronic boards designed to be easily programmable. From the official Arduino website, "Arduino is an open-source electronics prototyping platform based on flexible, easy-to-use hardware and software. "\\
+	Arduino is a family of low-cost electronic boards designed to be easily programmable. From the official Arduino website, ``Arduino is an open-source electronics prototyping platform based on flexible, easy-to-use hardware and software. "\cite{component8}\\
 
 	Arduino is programmed using its own language, which is merely a set of C/C++ functions compiled with \textit{avr-g++}. They can nonetheless be programmed in pure C or C++ in an external IDE and have code uploaded to it as any other AVR board.\\
 
-	In this proyect an Arduino Nano v3 with an ATmega 328 microcontroller has been chosen mainly due to its processing power and reduced size.
+	In this proyect an Arduino Nano v3 with an ATmega 328 microcontroller has been chosen mainly due to its processing power and reduced size.\cite{component9}
 		
 		\begin{figure}[H]
 			\centering
@@ -331,7 +331,7 @@ Three different types of actuators are present in the robot, which are either co
 \newpage
 \subsection{Raspberry Pi}
 
-	From the official website of the homonymous foundation, the Raspberry Pi is a "credit-card sized computer that plugs into your TV and a keyboard. It is a capable little computer which can be used in electronics projects."\\
+	From the official website of the homonymous foundation, the Raspberry Pi is a ``credit-card sized computer that plugs into your TV and a keyboard. It is a capable little computer which can be used in electronics projects."\cite{component10}\\
 
 		\begin{figure}[H]
 				\centering
@@ -341,7 +341,7 @@ Three different types of actuators are present in the robot, which are either co
 		\end{figure}
 		\bigskip
 
-	Available in two models, A and B, the Raspberry has a Broadcom BCM2835 System On a Chip, which includes an ARM1176JZF-S 700MHz processor and a VideoCore IV GPU. It includes as well a 256Mb RAM, upgraded to 512Mb in model B.\\
+	Available in two models, A and B, the Raspberry has a Broadcom BCM2835 System On a Chip, which includes an ARM1176JZF-S 700MHz processor and a VideoCore IV GPU. It includes as well a 256Mb RAM, upgraded to 512Mb in model B.\cite{component11}\\
 
 	\bigskip
 
@@ -403,7 +403,7 @@ Three different types of actuators are present in the robot, which are either co
 \newpage
 \subsection{Android phone}
 
-Android is one of the most popular operating systems for smartphones. Created in 2003 by the eponymous company and adquired by Google Inc. two years later, its open-source nature has incentivised manufacturers to include it in their products, expanding its reach until it has dominated the market share, as seen in Figure \ref{marketshare}.
+Android is one of the most popular operating systems for smartphones. Created in 2003 by the eponymous company and adquired by Google Inc. two years later, its open-source nature has incentivised manufacturers to include it in their products, expanding its reach until it has dominated the market share, as seen in Figure \ref{marketshare} \cite{component12}.
 
 	\begin{figure}[H]
 			\centering
