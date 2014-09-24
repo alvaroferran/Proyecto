@@ -113,7 +113,7 @@ The following section will explain how to establish this kind of connection. In 
   \bigskip
 
 
-Firstly the  \textit{Hostapd} and  \textit{Isc-dhcp-server} packages have to be installed: \textit{sudo apt-get install hostapd isc-dhcp-server}.\\
+Firstly the  \textit{Hostapd} \cite{component13} and  \textit{Isc-dhcp-server} \cite{component14} packages have to be installed: \textit{sudo apt-get install hostapd isc-dhcp-server}.\\
 
 Once the needed packages have been installed the DHCP server must be configured in order to assign IP addresses to clients. The contents of \textit{/etc/dhcp/dhcpd.conf} must be replaced with those in Listing \ref{dhcp-server-ap}. \\
 
@@ -254,7 +254,7 @@ This concludes the wireless communications setup, finally using the wifi Access 
 
 One feature the robot implements is the ability to send a video feed to the user's telephone. This is useful in the case of a patient with limited mobility, as they can navigate it through the rooms of a house without having to follow it.\\
 
-To achieve this the package \textit{MJPG-streamer} is installed, which captures JPG shots from a camera connected to the computer and streams them as M-JPEG through HTTP to external viewers. It is downloaded from the official \href{http://sourceforge.net/projects/mjpg-streamer/?source=navbar}{repository} and built from source using the \textit{GNU Make} utility.\\
+To achieve this the package \textit{MJPG-streamer} is installed, which captures JPG shots from a camera connected to the computer and streams them as M-JPEG through HTTP to external viewers. It is downloaded from the official \href{http://sourceforge.net/projects/mjpg-streamer/?source=navbar}{repository} \footnote{http://sourceforge.net/projects/mjpg-streamer/?source=navbar} and built from source using the \textit{GNU Make} utility.\\
 
 Once built, the package includes three main files: mjpg\textunderscore streamer, input\textunderscore uvc.so and output\textunderscore http.so, with each performing one part of the total procedure. More specifically,
   
@@ -306,7 +306,7 @@ The robot now has the ability of streaming images from its webcam, which will be
 
 \subsection{IP/UART Bridge} 
 
-It uses the Adafruit-CharLCD library, which can be downloaded from their \href{https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code}{repository}, to enable writing to the LCD screen.\\
+It uses the Adafruit-CharLCD library, which can be downloaded from their \href{https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code}{repository} \footnote{https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code}, to enable writing to the LCD screen.\\
 
 Figure \ref{rasbpiFlowchart} presents a flowchart of the socket to serial connection software.\\
 
@@ -371,7 +371,7 @@ The program creates a TCP socket server which continuously searches for clients 
 
 One of the defining features of this project is that it must be usable by non-technological people, and so it must initialize every service it needs on its own. \\
 
-To do so, the tasks previously defined are called automatically from a script when the system boots. The contents of \textit{/etc/rc.local} are executed right after the computer executes its own routines.\\
+To do so, the tasks previously defined are called automatically from a script when the system boots. The contents of \textit{/etc/rc.local} are executed right after the computer executes its own routines.\cite{component15}\\
 
 
 	\begin{minipage}{\linewidth}%to ensure it stays in the same page
